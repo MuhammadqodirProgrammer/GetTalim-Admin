@@ -8,6 +8,7 @@ export default function Resources() {
 	return (
 
 		<>
+		{/* mentor page */}
 		 <nav className="flex justify-between mb-3" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
