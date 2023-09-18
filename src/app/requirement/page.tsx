@@ -19,9 +19,6 @@ export default function Page() {
       });
   }, []);
 
-  console.log(num);
-  console.log(data);
-
   const handleSubmit = async (evt: any) => {
     evt.preventDefault();
     console.log(evt.target[0].value);

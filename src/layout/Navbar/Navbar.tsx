@@ -76,7 +76,7 @@ function Navbar() {
             <button
               type="button"
               className={
-                pathname == "/studnet"
+                pathname == "/student"
                   ? "active_link nav_link-button"
                   : "nav_link-button"
               }
