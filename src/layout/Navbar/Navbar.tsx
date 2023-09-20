@@ -47,7 +47,7 @@ function Navbar() {
             <button
               type="button"
               className={
-                pathname == "/resources"
+                pathname == "/category"
                   ? "active_link nav_link-button"
                   : "nav_link-button"
               }
