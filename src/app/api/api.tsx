@@ -1,7 +1,7 @@
 import axios from "axios";
 const token = localStorage.getItem("token");
-export const baseUrl = "http://64.227.42.134:3030";
-export const baseUrlImg = "http://64.227.42.134:3030/api";
+export const baseUrlImg = "http://64.227.42.134:3030";
+export const baseUrl = "http://64.227.42.134:3030/api";
 const apiRoot = axios.create({
   baseURL: `http://161.35.188.153`,
   // headers:{

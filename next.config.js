@@ -5,7 +5,7 @@ const nextConfig = {
   compress: true,
   preload: true,
   images: {
-    domains: ["fakestoreapi.com"],
+    domains: ["64.227.42.134"],
   },
   sassOptions: {
     includePaths: ["path/to/sass/directory"],
