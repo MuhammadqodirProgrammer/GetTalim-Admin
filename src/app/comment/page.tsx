@@ -5,6 +5,7 @@ import Link from "next/link";
 import BgImage from "public/images/react-native.webp";
 import instance, { baseUrlImg } from "../api/api";
 import { useEffect, useState } from "react";
+import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
 export default function Comment() {
   const [data, setData] = useState<any[]>([]);
@@ -44,10 +45,13 @@ export default function Comment() {
       <div className="flex flex-wrap gap-5">
         {data.map((el: any) => {
           return (
-            <>
+            <div
+              className="flex flex-col relative w-full lg:w-[31%] bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto 
+          "
+            >
               <Link
                 href="/singleProduct"
-                className="flex flex-col relative w-full lg:w-[31%] bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto"
+                className=" flex flex-col relative  max-lg:m-auto  "
               >
                 <Image
                   className="min-h-[250px] h-full w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
@@ -84,7 +88,15 @@ export default function Comment() {
                   })}
                 </div>
               </Link>
-            </>
+              <div className="mt-3 flex items-center gap-3">
+                <button className="text-white flex items-center gap-2 bg-[orange] p-2 rounded-md">
+                  <FiEdit2 /> Edit
+                </button>
+                <button className="text-white flex items-center gap-2 bg-[red] p-2 rounded-md">
+                  <FiTrash2 /> delete
+                </button>
+              </div>
+            </div>
           );
         })}
       </div>

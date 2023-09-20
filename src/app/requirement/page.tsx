@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import instance, { baseUrl, baseUrlImg } from "../api/api";
 import Demo from "../../../public/images/logo2.png";
 import Image from "next/image";
+import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
 export default function Page() {
   const [data, setData] = useState<any>([]);
@@ -72,13 +73,16 @@ export default function Page() {
           </button>
         </form>
       </div>
-      <div>
+      <div className="flex flex-wrap gap-5">
         {data.map((el: any) => {
           return (
-            <>
+            <div
+              className="flex flex-col relative w-full lg:w-[31%] bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto 
+          "
+            >
               <Link
                 href="/singleProduct"
-                className="flex flex-col relative w-full lg:w-[31%] bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto"
+                className=" flex flex-col relative  max-lg:m-auto  "
               >
                 <Image
                   className="min-h-[250px] h-full w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
@@ -106,17 +110,27 @@ export default function Page() {
                   </div>
                 </div>
                 <div>
-                  <h2 className="text-[25px] text-white mt-5 ">Course all Requirments</h2>
+                  <h2 className="mt-4 text-white text-[25px]">
+                    All Requirements:
+                  </h2>
                   {requirement.map((el: any) => {
                     return (
-                      <div className="">
+                      <div>
                         <h4 className="text-white">{el.requirment}</h4>
                       </div>
                     );
                   })}
                 </div>
               </Link>
-            </>
+              <div className="mt-3 flex items-center gap-3">
+                <button className="text-white flex items-center gap-2 bg-[orange] p-2 rounded-md">
+                  <FiEdit2 /> Edit
+                </button>
+                <button className="text-white flex items-center gap-2 bg-[red] p-2 rounded-md">
+                  <FiTrash2 /> delete
+                </button>
+              </div>
+            </div>
           );
         })}
       </div>
