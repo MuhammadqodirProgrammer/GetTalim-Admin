@@ -71,7 +71,6 @@ function Navbar() {
               </div>
             </button>
           </Link>
-
           <Link className="nav_link" href="/student">
             <button
               type="button"
@@ -165,7 +164,6 @@ function Navbar() {
               </div>
             </button>
           </Link>
-
           <Link className="nav_link" href="/comment">
             <button
               type="button"
@@ -181,7 +179,6 @@ function Navbar() {
               </div>
             </button>
           </Link>
-
           <Link className="nav_link" href="/requirement">
             <button
               type="button"
@@ -210,7 +207,6 @@ function Navbar() {
               </div>
             </button>
           </Link>
-
           <Link className="nav_link" href="/benefit">
             <button
               type="button"
@@ -228,7 +224,6 @@ function Navbar() {
           </Link>
         </div>
       </nav>
-      {/* mobile navbat */}
     </>
   );
 }

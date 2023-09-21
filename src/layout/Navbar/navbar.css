@@ -4,16 +4,17 @@
     top: 10vh;
     background-color: #171923;
     width: 300px;
-bottom: 0;
+    bottom: 0;
     height: 100vh;
 }
-.navbar_offcanvas{
+
+.navbar_offcanvas {
     position: fixed;
     left: 0;
     top: 0;
     background-color: #171923;
     width: 300px;
-bottom: 0;
+    bottom: 0;
     height: 100vh;
     z-index: 999;
 }
