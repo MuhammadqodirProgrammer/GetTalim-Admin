@@ -28,7 +28,7 @@ const NewCourses = () => {
           <>
             <Link
               href="/singleProduct"
-              className="flex flex-col relative w-full lg:w-[31%] bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto"
+              className="flex flex-col relative w-full lg:w-[31%] bg-[#eee] dark:bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto border border-[#ddd] dark:border-none"
             >
               <Image
                 className="min-h-[250px] h-full w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
@@ -40,17 +40,17 @@ const NewCourses = () => {
               <h5 className="pt-2 text-sm text-newCourcesPreTitleColor text-center uppercase">
                 mobil dastur
               </h5>
-              <h6 className="pt-3 pb-3 font-medium text-white text-center">
+              <h6 className="pt-3 pb-3 font-medium text-[black] dark:text-white text-center">
                 {el.name}
               </h6>
-              <hr className="h-1 w-full bg-CoursesHr" />
+              <hr className="h-1 w-full bg-[#000] dark:bg-CoursesHr" />
               <div className="flex justify-between pt-5 items-center">
                 <div className="flex gap-3 text-white items-center">
-                  <button className="text-newCourcesBtn border border-solid border-newCourcesBtn font-medium px-3 py-1 rounded-md transition ease-in-out  hover:bg-newCourcesBtnHover">
+                  <button className="text-slate-700 dark:text-newCourcesBtn font-medium border border-solid border-[purple] dark:border-newCourcesBtn px-3 py-1 rounded-md transition ease-in-out  hover:bg-newCourcesBtnHover">
                     batafsil
                   </button>
                 </div>
-                <div className="flex gap-3 text-white items-center">
+                <div className="flex gap-3 text-[black] dark:text-white items-center">
                   <p className="text-sm line-through">{el.price}</p>
                   <p className="font-bold">Bepul</p>
                 </div>

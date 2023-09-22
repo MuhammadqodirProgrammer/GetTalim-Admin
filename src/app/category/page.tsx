@@ -15,9 +15,11 @@ export default function Category() {
         },
       });
       setData(response.data);
+      console.log(response.data);
     };
     getCategory();
   }, []);
+  
   return (
     <div>
       <nav className="flex justify-between mb-3" aria-label="Breadcrumb">
@@ -58,7 +60,7 @@ export default function Category() {
                 />
               </svg>
               <a className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                Suniy intlekt
+                Categories
               </a>
             </div>
           </li>
@@ -108,11 +110,11 @@ export default function Category() {
                 </div>
                 <div className="flex items-center gap-5">
                   <div className="flex items-center gap-2">
-                    <BsCalendarDay color={"white"} size={16} />
+                    <BsCalendarDay size={16} />
                     <p className=" dark:text-gray-400">31.08.2023 4:17 PM</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <BsCalendarCheck color={"white"} size={16} />
+                    <BsCalendarCheck size={16} />
                     <p className=" dark:text-gray-400">04.09.2023 10:59 AM</p>
                   </div>
                 </div>

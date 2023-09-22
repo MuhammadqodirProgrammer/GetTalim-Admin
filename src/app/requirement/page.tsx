@@ -55,6 +55,50 @@ export default function Page() {
   };
   return (
     <div className="">
+      <nav className="flex justify-between mb-3" aria-label="Breadcrumb">
+        <ol className="inline-flex items-center space-x-1 md:space-x-3">
+          <li className="inline-flex items-center">
+            <Link href="/dashboard">
+              <Link
+                href="#"
+                className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+              >
+                <svg
+                  className="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                </svg>
+              </Link>
+            </Link>
+          </li>
+          <li>
+            <div className="flex items-center">
+              <svg
+                className="w-3 h-3 text-gray-400 mx-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+              <a className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
+                Requirement
+              </a>
+            </div>
+          </li>
+        </ol>
+      </nav>
       <h1 className="text-textColor text-[30px]"> Course Requirements</h1>
       <div>
         <form className="flex gap-5" onSubmit={(evt) => handleSubmit(evt)}>
@@ -73,11 +117,11 @@ export default function Page() {
           </button>
         </form>
       </div>
-      <div className="flex flex-wrap gap-5">
+      <div className="flex flex-wrap gap-5 mt-8">
         {data.map((el: any) => {
           return (
             <div
-              className="flex flex-col relative w-full lg:w-[31%] bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto 
+              className="flex flex-col relative w-full lg:w-[31%]  bg-[#eee] dark:bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto border border-[#ddd] dark:border-none
           "
             >
               <Link
@@ -94,29 +138,31 @@ export default function Page() {
                 <h5 className="pt-2 text-sm text-newCourcesPreTitleColor text-center uppercase">
                   mobil dastur
                 </h5>
-                <h6 className="pt-3 pb-3 font-medium text-white text-center">
+                <h6 className="pt-3 pb-3 font-medium  text-[black] dark:text-white  text-center">
                   {el.name}
                 </h6>
-                <hr className="h-1 w-full bg-CoursesHr" />
+                <hr className="h-1 w-full bg-[#000] dark:bg-CoursesHr" />
                 <div className="flex justify-between pt-5 items-center">
                   <div className="flex gap-3 text-white items-center">
-                    <button className="text-newCourcesBtn border border-solid border-newCourcesBtn font-medium px-3 py-1 rounded-md transition ease-in-out  hover:bg-newCourcesBtnHover">
+                    <button className="text-slate-700 dark:text-newCourcesBtn border border-solid border-newCourcesBtn font-medium px-3 py-1 rounded-md transition ease-in-out  hover:bg-newCourcesBtnHover">
                       batafsil
                     </button>
                   </div>
-                  <div className="flex gap-3 text-white items-center">
+                  <div className="flex gap-3 text-[black] dark:text-white items-center">
                     <p className="text-sm line-through">{el.price}</p>
                     <p className="font-bold">Bepul</p>
                   </div>
                 </div>
                 <div>
-                  <h2 className="mt-4 text-white text-[25px]">
+                  <h2 className="mt-4 text-black dark:text-white text-[25px]">
                     All Requirements:
                   </h2>
                   {requirement.map((el: any) => {
                     return (
                       <div>
-                        <h4 className="text-white">{el.requirment}</h4>
+                        <h4 className="text-[black] dark:text-white">
+                          {el.requirment}
+                        </h4>
                       </div>
                     );
                   })}

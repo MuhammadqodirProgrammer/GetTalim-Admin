@@ -50,148 +50,23 @@ export default function Student() {
           </li>
         </ol>
       </nav>
-      <h1 className="text-white text-[30px]">Students</h1>
+      <h1 className="text-black mb-3 dark:text-white text-[30px]">Students</h1>
       <div>
         <div></div>
         <div className="flex flex-wrap gap-3 md:justify-start justify-center">
-          <div className="bg-cardColor flex flex-col justify-center items-center p-3 rounded-lg w-full sm:max-w-[200px]">
+          <div className="shadow bg-white dark:bg-cardColor flex flex-col justify-center items-center p-3 rounded-lg w-full sm:max-w-[200px]">
             <Image src={demo} width={100} height={100} alt="pic" />
             <div className="mt-2">
-              <h4 className="text-white font-semibold text-[18px]">
+              <h4 className="text-black dark:text-white font-semibold text-[18px]">
                 Nozim Hakimov Rustam
               </h4>
               <p className="text-[grey]">nozim@gmail.com</p>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
+              <div className="flex gap-2 mt-2 text-grey">
+                <BsCalendarDay />
                 <p className="text-[grey] text-[14px]">30.08.2023 12:43 PM</p>
               </div>
               <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">02.09.2023 1:22 AM</p>
-              </div>
-              <div className="flex flex-col gap-2 mt-2">
-                <button className="p-2 rounded-md bg-[blue] text-white">
-                  Edit
-                </button>
-                <button className="p-2 rounded-md bg-[red] text-white">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="bg-cardColor flex flex-col justify-center items-center p-3 rounded-lg w-full sm:max-w-[200px]">
-            <Image src={demo} width={100} height={100} alt="pic" />
-            <div className="mt-2">
-              <h4 className="text-white font-semibold text-[18px]">
-                Nozim Hakimov Rustam
-              </h4>
-              <p className="text-[grey]">nozim@gmail.com</p>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">30.08.2023 12:43 PM</p>
-              </div>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">02.09.2023 1:22 AM</p>
-              </div>
-              <div className="flex flex-col gap-2 mt-2">
-                <button className="p-2 rounded-md bg-[blue] text-white">
-                  Edit
-                </button>
-                <button className="p-2 rounded-md bg-[red] text-white">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="bg-cardColor flex flex-col justify-center items-center p-3 rounded-lg w-full sm:max-w-[200px]">
-            <Image src={demo} width={100} height={100} alt="pic" />
-            <div className="mt-2">
-              <h4 className="text-white font-semibold text-[18px]">
-                Nozim Hakimov Rustam
-              </h4>
-              <p className="text-[grey]">nozim@gmail.com</p>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">30.08.2023 12:43 PM</p>
-              </div>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">02.09.2023 1:22 AM</p>
-              </div>
-              <div className="flex flex-col gap-2 mt-2">
-                <button className="p-2 rounded-md bg-[blue] text-white">
-                  Edit
-                </button>
-                <button className="p-2 rounded-md bg-[red] text-white">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="bg-cardColor flex flex-col justify-center items-center p-3 rounded-lg w-full sm:max-w-[200px]">
-            <Image src={demo} width={100} height={100} alt="pic" />
-            <div className="mt-2">
-              <h4 className="text-white font-semibold text-[18px]">
-                Nozim Hakimov Rustam
-              </h4>
-              <p className="text-[grey]">nozim@gmail.com</p>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">30.08.2023 12:43 PM</p>
-              </div>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">02.09.2023 1:22 AM</p>
-              </div>
-              <div className="flex flex-col gap-2 mt-2">
-                <button className="p-2 rounded-md bg-[blue] text-white">
-                  Edit
-                </button>
-                <button className="p-2 rounded-md bg-[red] text-white">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="bg-cardColor flex flex-col justify-center items-center p-3 rounded-lg w-full sm:max-w-[200px]">
-            <Image src={demo} width={100} height={100} alt="pic" />
-            <div className="mt-2">
-              <h4 className="text-white font-semibold text-[18px]">
-                Nozim Hakimov Rustam
-              </h4>
-              <p className="text-[grey]">nozim@gmail.com</p>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">30.08.2023 12:43 PM</p>
-              </div>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">02.09.2023 1:22 AM</p>
-              </div>
-              <div className="flex flex-col gap-2 mt-2">
-                <button className="p-2 rounded-md bg-[blue] text-white">
-                  Edit
-                </button>
-                <button className="p-2 rounded-md bg-[red] text-white">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="bg-cardColor flex flex-col justify-center items-center p-3 rounded-lg w-full sm:max-w-[200px]">
-            <Image src={demo} width={100} height={100} alt="pic" />
-            <div className="mt-2">
-              <h4 className="text-white font-semibold text-[18px]">
-                Nozim Hakimov Rustam
-              </h4>
-              <p className="text-[grey]">nozim@gmail.com</p>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
-                <p className="text-[grey] text-[14px]">30.08.2023 12:43 PM</p>
-              </div>
-              <div className="flex gap-2 mt-2">
-                <BsCalendarDay color={"white"} />
+                <BsCalendarDay />
                 <p className="text-[grey] text-[14px]">02.09.2023 1:22 AM</p>
               </div>
               <div className="flex flex-col gap-2 mt-2">
