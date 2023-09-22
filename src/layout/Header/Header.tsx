@@ -26,7 +26,7 @@ const Header = () => {
   };
   return (
     <>
-      <header className="  header  fixed w-full z-50 top-0 left-0 flex items-center">
+      <header className="  header bg-[#fff] dark:bg-topColor text-black dark:text-white  fixed w-full z-50 top-0 left-0 flex items-center">
         <div className="flex  gap-x-5 m-auto  justify-between container items-center">
           <Link
             href="/"
@@ -37,7 +37,7 @@ const Header = () => {
           </Link>
           <div className="chakra-stack flex items-center md:gap-x-2  gap-x-3 ">
             <div className="dropdown">
-              <button className="dropbtn text-[14px]">English</button>
+              <button className="dropbtn text-[14px] text-black dark:text-white">English</button>
               <div className="dropdown-content">
                 <button className="w-full">1</button>
                 <button className="w-full">2</button>
