@@ -16,7 +16,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="navbar shadow bg-[#fff] dark:bg-topColor hidden md:flex">
+      <nav className="navbar shadow z-50 bg-[#fff] dark:bg-topColor hidden md:flex">
         <div className="navbar_box text-black dark:text-mainColor ">
           <Link className="nav_link" href="/">
             <button

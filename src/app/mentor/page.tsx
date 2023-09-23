@@ -4,24 +4,10 @@ import { FaUserTie } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { MdCalendarMonth } from "react-icons/md";
-import { useContext } from "react";
-import { useTheme } from "next-themes";
 
 export default function Resources() {
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
   return (
     <>
-      <button
-        className={`bg-white dark:bg-black text-gray-800 font-bold py-2 px-4 rounded`}
-        onClick={toggleTheme}
-      >
-        Toggle Theme
-      </button>
       {/* mentor page */}
       <nav className="flex justify-between mb-3" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
