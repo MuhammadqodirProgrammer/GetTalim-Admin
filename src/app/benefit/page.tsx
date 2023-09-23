@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import instance, { baseUrlImg } from "../api/api";
 import Image from "next/image";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import { Modal } from "@/components/Modal/Modal";
 
 export default function Benefits() {
   const [data, setData] = useState<any>([]);
   const [requirement, setRequirement] = useState([]);
   const [id, setId] = useState([]);
+  const [loginModal, setLoginModal] = useState(false);
 
   useEffect(() => {
     const getCourseRequirement = async () => {
@@ -136,7 +138,10 @@ export default function Benefits() {
                 </div>
               </Link>
               <div className="mt-3 flex items-center gap-3">
-                <button className="text-white flex items-center gap-2 bg-[orange] p-2 rounded-md">
+                <button
+                  onClick={() => setLoginModal(true)}
+                  className="text-white flex items-center gap-2 bg-[orange] p-2 rounded-md"
+                >
                   <FiEdit2 /> Edit
                 </button>
                 <button className="text-white flex items-center gap-2 bg-[red] p-2 rounded-md">
@@ -146,6 +151,48 @@ export default function Benefits() {
             </div>
           );
         })}
+        <Modal
+          width={"480px"}
+          title={"Edit"}
+          modal={loginModal}
+          setModal={setLoginModal}
+        >
+          <div className=" md:p-5 ">
+            <form
+              className="flex flex-col items-center gap-3 justify-center"
+              // onSubmit={handleSubmit}
+            >
+              <div className="flex flex-col gap-2">
+                <label htmlFor="name">Username</label>
+                <input
+                  className="w-full p-2 border border-[grey]"
+                  placeholder="Username"
+                  type="text"
+                  name="name"
+                  id="name"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="password">Password</label>
+                <input
+                  className="w-full p-2 border border-[grey]"
+                  placeholder="*****"
+                  type="password"
+                  name="phoneNumber"
+                  id="phone"
+                />
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="bg-mainColor p-3 mt-3 text-white w-[200px]"
+                >
+                  Log In
+                </button>
+              </div>
+            </form>
+          </div>
+        </Modal>
       </div>
     </div>
   );
