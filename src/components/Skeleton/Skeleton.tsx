@@ -21,3 +21,16 @@ export function SkeletonDemo() {
     </div>
   );
 }
+
+export function VideoSkeleton() {
+  return (
+    <div className="w-[100%] ">
+      <Skeleton className=" min-h-[150px]  min-w-[250px] lg:w-[100%] h-full w-full" />
+        <div className=" my-5 ">
+          <Skeleton className=" mt-2 h-4 w-[80px]" />
+          <Skeleton className=" mt-2 h-3 w-[220px]" />
+          <Skeleton className=" mt-2 h-3 w-[220px]" />
+        </div>
+    </div>
+  );
+}
