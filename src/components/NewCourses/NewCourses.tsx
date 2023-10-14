@@ -5,29 +5,46 @@ import BgImage from "public/images/react-native.webp";
 
 import React, { useEffect, useState } from "react";
 import instance, { baseUrlImg } from "@/app/api/api";
+import { Pagination } from "../Pagination/Pagination";
 
-const NewCourses = () => {
+const NewCourses = ({myHref}:any) => {
   const [data, setData] = useState<any>([]);
+  const [totlaPage, setTotlaPage] = useState<any>();
+  const [activePage, setActivePage] = useState<any>(1);
+
+
+  const getCourse = async () => {
+    let res = await instance.get(`/api/courses?page=${activePage}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log(res?.data, 'courses');
+    if (res.data?.length) {
+      setData(res?.data);
+      const xPagination =JSON.parse(res.headers["x-pagination"]);
+      console.log(xPagination, 'xPagination');
+      setTotlaPage(xPagination?.TotalPages)
+
+    }
+  };
+
   useEffect(() => {
-    const getCourse = async () => {
-      let response = await instance.get("/api/courses?page=1", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      setData(response.data);
-    };
+  
 
     getCourse();
   }, []);
 
   return (
+
+    <div>
     <div className="flex flex-wrap gap-5">
       {data.map((el: any) => {
         return (
           <>
             <Link
-              href="/singleProduct"
+              href={myHref}
               className="flex flex-col relative w-full lg:w-[31%] bg-[#eee] dark:bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto border border-[#ddd] dark:border-none"
             >
               <Image
@@ -59,6 +76,10 @@ const NewCourses = () => {
           </>
         );
       })}
+    </div>
+    
+<Pagination   totalPage={totlaPage} setActivePage={setActivePage} activePage={activePage}   />
+    
     </div>
   );
 };

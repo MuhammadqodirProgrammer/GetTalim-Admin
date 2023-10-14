@@ -14,6 +14,9 @@ import Image from "next/image";
 function Navbar() {
   const pathname = usePathname();
 
+  console.log( pathname ==( "/coursevideo" || "/video") ,"testing ");
+  
+
   return (
     <>
       <nav className="navbar shadow z-50 bg-[#fff] dark:bg-topColor hidden md:flex">
@@ -151,11 +154,11 @@ function Navbar() {
               </div>
             </button>
           </Link>
-          <Link className="nav_link" href="/video">
+          <Link className="nav_link" href="/coursevideo">
             <button
               type="button"
               className={
-                pathname == "/video"
+                pathname ==( "/coursevideo" || "/video")
                   ? "active_link nav_link-button"
                   : "nav_link-button"
               }

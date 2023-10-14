@@ -51,7 +51,7 @@ export default function Courses() {
       <h2 className="text-[30px]  lg:text-[36px] my-5  text-black dark:text-white font-semibold pt-8 ">
         <span className="text-mainColor">Barcha </span> kurslar
       </h2>
-      <NewCourses />
+      <NewCourses myHref="/singleProduct" />
     </div>
   );
 }

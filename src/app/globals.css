@@ -8,6 +8,16 @@
   --background-end-rgb: rgb(26, 32, 44);
 } */
 
+.pagination{
+  display: flex;
+  align-items: center;
+row-gap: 15px;
+flex-wrap: wrap;
+margin: 0 auto;
+
+}
+
+
 /* @layer base {
   :root {
     --background: 0 0% 100%;

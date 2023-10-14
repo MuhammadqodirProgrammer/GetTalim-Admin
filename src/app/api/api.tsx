@@ -1,5 +1,5 @@
 import axios from "axios";
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("token") || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJGaXJzdE5hbWUiOiJUZW11cmJlayIsIkxhc3ROYW1lIjoiS29kaXJvdiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoid28udGVtdXJiZWtAZ21haWwuY29tIiwiZXhwIjoxNjk3MzQ2NDE1LCJpc3MiOiJodHRwOi8vYWdpbGVzaG9wLnV6IiwiYXVkIjoiQWdpbGVTaG9wIn0.uxY_ZweqaUd05vCbLe_w7PUn5WtXkz20Z4LY5pn4ab8";
 export const baseUrlImg = "http://64.227.42.134:3030";
 export const baseUrl = "http://64.227.42.134:3030/api";
 const apiRoot = axios.create({
