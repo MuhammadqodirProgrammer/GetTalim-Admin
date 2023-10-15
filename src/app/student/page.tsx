@@ -283,7 +283,7 @@ console.log(deleteID ,"deleteID");
 							/>
 							<div className='mt-2'>
 								<h4 className='text-black dark:text-white font-semibold text-[18px]'>
-									{el?.firstName} {el?.lastName}
+									{(el?.firstName + " " +el?.lastName).slice(0 , 15)}..
 								</h4>
 								<p className='text-[grey]'>{el?.email}</p>
 								<div className='flex gap-2 mt-2 text-grey'>

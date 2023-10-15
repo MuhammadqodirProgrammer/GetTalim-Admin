@@ -507,7 +507,7 @@ export default function Resources() {
 
 							<div className='flex items-center justify-center w-full'>
 								<label
-									htmlFor='dropzone-file'
+									htmlFor='dropzone-file-mentor'
 									className=' relative flex flex-col items-center justify-center w-full h-[95px] border-2 border-gray-500 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600'
 								>
 									<div className='flex flex-col items-center justify-center pt-3 pb-4'>
@@ -543,7 +543,7 @@ export default function Resources() {
 										</p>
 									</div>
 									<input
-										id='dropzone-file'
+										id='dropzone-file-mentor'
 										type='file'
 										className='hidden'
 										ref={editimgRef}
