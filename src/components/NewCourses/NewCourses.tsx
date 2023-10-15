@@ -51,8 +51,8 @@ const NewCourses = ({myHref}:any) => {
                 className="min-h-[250px] h-full w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
                 src={`${baseUrlImg}/${el.imagePath}`}
                 alt="Picture of the course"
-                width={"1000"}
-                height={"1000"}
+                width={"10000"}
+                height={"10000"}
               />
               <h5 className="pt-2 text-sm text-newCourcesPreTitleColor text-center uppercase">
                 mobil dastur

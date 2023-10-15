@@ -27,9 +27,9 @@ export default function Page() {
 
 	const getCourseModules = async () => {
 		instance
-			.get(`api/CourseModuls/videos/student/2`)
+			.get(`api/CourseModuls/videos/student/${myCourseId}`)
 			.then((res: any) => {
-				console.log(res?.data?.[0]?.videos ,"result my data ");
+				console.log(res?.data ,"result my data ");
 				
 				if (res.data?.length) {
 					setVideos(res?.data?.[0]?.videos)
@@ -49,41 +49,13 @@ export default function Page() {
 			});
 	};
 
-	// const getCourse = () => {
-	// 	instance
-	// 		.get(`api/courses?page=1`)
-	// 		.then((res: any) => {
-	// 			if (res.data?.length) {
-	// 				setCourses(res?.data);
+	async function getModules() {
+		
+		const res = await instance.get("api/CourseModuls?page=1")
 
-	// 				const xPagination = JSON.parse(res.headers['x-pagination']);
-	// 				console.log(xPagination, 'courses');
-	// 				const arr: any = [];
-	// 				for (let i = 0; i < xPagination?.TotalPages; i++) {
-	// 					arr.push(i);
-	// 				}
-
-	// 				setTotalPages(arr);
-	// 			}
-	// 		})
-	// 		.catch((err: any) => {
-	// 			console.log(err);
-	// 		});
-	// };
-
-	const getVideos = () => {
-		instance
-			.get(`api/videos?page=1`)
-			.then((res: any) => {
-				console.log(res.data, 'data');
-				if (res.data?.length) {
-					setVideos(res.data);
-				}
-			})
-			.catch((err: any) => {
-				console.log(err);
-			});
-	};
+		console.log(res?.data , "resss");
+		
+	}
 
 	const createVideoFunc = async (e: any) => {
 		e.preventDefault();
@@ -107,10 +79,12 @@ export default function Page() {
 
 	useEffect(() => {
 		getCourseModules()
+		getModules()
 		// getCourse();
 		// getVideos();
 	}, []);
 	console.log(videos ,"result my  videos data ");
+	console.log(myCourseId ,"myCourseIda ");
 
  async	function moduleChangeFunc(evt:any) {
 		evt.preventDefault()
