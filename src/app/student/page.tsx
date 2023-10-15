@@ -285,14 +285,14 @@ export default function Student() {
                 height={100}
                 alt="pic"
                 className=" rounded-full w-[90px] h-[90px]  object-cover  "
-              />
-              <div className="mt-2">
-                <h4 className="text-black dark:text-white font-semibold text-[18px]">
-                  {el?.firstName} {el?.lastName}
-                </h4>
-                <p className="text-[grey]">{el?.email}</p>
-                <div className="flex gap-2 mt-2 text-grey">
-                  <BsFillTelephoneFill className="text-[#9F7AEA] dark:text-white " />
+							/>
+							<div className='mt-2'>
+								<h4 className='text-black dark:text-white font-semibold text-[18px]'>
+									{(el?.firstName + " " +el?.lastName).slice(0 , 15)}..
+								</h4>
+								<p className='text-[grey]'>{el?.email}</p>
+								<div className='flex gap-2 mt-2 text-grey'>
+									<BsFillTelephoneFill  className="text-[#9F7AEA] dark:text-white " />
 
                   <p className="text-[grey] text-[14px]">
                     {el?.phoneNumber ? el?.phoneNumber : "no phone "}

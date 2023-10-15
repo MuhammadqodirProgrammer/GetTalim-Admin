@@ -29,7 +29,18 @@ export default function Page() {
     instance
       .get(`api/CourseModuls/videos/student/${myCourseId}`)
       .then((res: any) => {
-        console.log(res?.data, "result my data ");
+        console.log(res?.data, "result my data videosss ");
+
+        if (res.data?.length) {
+          setVideos(res?.data?.[0]?.videos);
+          setCourses(res?.data);
+          const xPagination = JSON.parse(res.headers["x-pagination"]);
+          console.log(xPagination, "courses xpagination");
+          const arr: any = [];
+          for (let i = 0; i < xPagination?.TotalPages; i++) {
+            arr.push(i);
+          }
+        }
 
         if (res.data?.length) {
           setVideos(res?.data?.[0]?.videos);

@@ -107,11 +107,11 @@ function Navbar() {
               </div>
             </button>
           </Link>
-          <Link className="nav_link" href="/module">
+          <Link className="nav_link" href="/coursemodule">
             <button
               type="button"
               className={
-                pathname == "/module"
+                pathname ==  ( "/coursemodule" || "/module")
                   ? "active_link nav_link-button"
                   : "nav_link-button"
               }
