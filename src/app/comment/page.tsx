@@ -4,61 +4,53 @@ import Image from "next/image";
 import Link from "next/link";
 import BgImage from "public/images/react-native.webp";
 import instance, { baseUrlImg } from "../api/api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import { Modal } from "@/components/Modal/Modal";
+import { Pagination } from "@/components/Pagination/Pagination";
 
 export default function Comment() {
   const [data, setData] = useState<any>([]);
+  const [activePage, setActivePage] = useState(1);
+  const [totalPages, setTotalPages] = useState<any>([]);
+  const [totalPagesPaginate, setTotalPagesPaginate] = useState<any>(1);
+  const [createComment, setCreateComment] = useState<boolean>(false);
   const [comment, setComment] = useState([]);
-  const [id, setId] = useState([]);
+  const [course, setCourse] = useState<any>([]);
+  const [commentId, setCommentId] = useState();
+
+  const courseIdRef: any = useRef();
 
   const getCourseComment = async () => {
-    let response = await instance.get("/api/course-comments?page=1", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    setComment(response.data);
-    let id = await response.data.map((el: any) => el.courseId);
-    setId(id);
-  };
+    const res = await instance.get(`api/courses?page=${activePage}`);
+    // console.log(res.data);
 
-  const getCourse = async () => {
-    let res1: any = id.forEach((element) => {
-      console.log(element);
-    });
-    // console.log(res1);
+    if (res.status === 200) {
+      setCourse(res.data);
+      const xPagination = JSON.parse(res.headers["x-pagination"]);
+      setTotalPagesPaginate(xPagination?.TotalPages);
 
-    let response = await instance.get(`/api/courses/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+      const arr: any = [];
+      for (let i = 0; i < xPagination?.TotalPages; i++) {
+        arr.push(i);
+      }
 
-    const res: any = response.data;
-    setData(res);
-  };
-  useEffect(() => {
-    getCourseComment();
-    getCourse();
-  }, []);
-
-  const handleSubmit = async (evt: any) => {
-    evt.preventDefault();
-    const newData = new FormData();
-    newData.append("Comment", evt.target[0].value);
-    newData.append("CourseId", evt.target[1].value);
-    console.log(newData);
-
-    let response = await instance.post("/api/coursecomments", newData);
-    console.log(response);
-
-    if (response.status === 200) {
-      alert("Created Comment Course");
-      getCourseComment();
+      setTotalPages(arr);
     }
   };
 
+  const handleChange = (evt: any) => {
+    evt.preventDefault();
+    setCommentId(evt.target.value);
+    getCommentCourse();
+  };
+
+  const getCommentCourse = async () => {
+    let res = await instance.get(
+      `/api/course-comments/course/${commentId}?page=${activePage}`
+    );
+    setData(res.data);
+  };
   const deleteComment = async (evt: any) => {
     let response = await instance.delete(`/api/coursecomments/${evt}`, {
       headers: {
@@ -71,6 +63,11 @@ export default function Comment() {
       getCourseComment();
     }
   };
+  useEffect(() => {
+    getCourseComment();
+    getCommentCourse();
+  }, []);
+  // console.log(data);
 
   return (
     <div className="">
@@ -118,87 +115,61 @@ export default function Comment() {
           </li>
         </ol>
       </nav>
-      <h1 className="text-[black] dark:text-white text-[30px]">
-        Course Comment{" "}
-      </h1>
-      <div>
-        <form
-          onSubmit={handleSubmit}
-          className="flex mt-5 flex-col gap-3 w-[50%]"
-        >
-          <input type="text" className="p-3 rounded-md" placeholder="Name" />
-          <select className="p-2 rounded-md">
-            <option value="1">1</option>
+      <div className="flex items-center justify-between my-5">
+        <h2 className="text-[30px]  lg:text-[36px]  text-black dark:text-white font-semibold  ">
+          <span className="text-mainColor">Barcha </span> Commentlar
+        </h2>
+        <div className="flex  gap-3">
+          <select
+            onChange={handleChange}
+            ref={courseIdRef}
+            className="p-2 max-w-[750px] rounded-md"
+          >
+            {/* <option selected>Change Course Comment</option> */}
+
+            {course.map((el: any) => {
+              return <option value={`${el?.id}`}>{el?.name}</option>;
+            })}
           </select>
-          <button className="bg-[blue] w-[95px] text-white p-3 rounded-md">
-            Submit
-          </button>
-        </form>
+          <select
+            onChange={handleChange}
+            ref={courseIdRef}
+            className="p-2 max-w-[750px] rounded-md"
+          >
+            <option disabled>Choose a page </option>
+
+            {totalPages?.map((el: any, inx: any) => {
+              return (
+                <option value={inx + 1} key={inx}>
+                  {inx + 1}
+                </option>
+              );
+            })}
+          </select>
+        </div>
       </div>
       <div className="flex flex-wrap gap-5">
-        {comment.map((i: any) => {
-          return (
-            <>
-              {data.map((el: any) => {
-                return (
-                  <div
-                    className="flex flex-col relative w-full lg:w-[31%] bg-[#eee] dark:bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto border border-[#ddd] dark:border-none
-          "
-                  >
-                    <Link
-                      href="/singleProduct"
-                      className=" flex flex-col relative  max-lg:m-auto  "
-                    >
-                      <Image
-                        className="min-h-[250px] h-full w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
-                        src={`${baseUrlImg}/${el.imagePath}`}
-                        alt="Picture of the course"
-                        width={"1000"}
-                        height={"1000"}
-                      />
-                      <h5 className="pt-2 text-sm text-newCourcesPreTitleColor text-center uppercase">
-                        mobil dastur
-                      </h5>
-                      <h6 className="pt-3 pb-3 font-medium text-[black] dark:text-white text-center">
-                        {el.name}
-                      </h6>
-                      <hr className="h-1 w-full bg-[#000] dark:bg-CoursesHr" />
-                      <div className="flex justify-between pt-5 items-center">
-                        <div className="flex gap-3 text-white items-center">
-                          <button className="text-slate-700 dark:text-newCourcesBtn border border-solid border-[purple] dark:border-newCourcesBtn font-medium px-3 py-1 rounded-md transition ease-in-out  hover:bg-newCourcesBtnHover">
-                            batafsil
-                          </button>
-                        </div>
-                        <div className="flex gap-3 text-[black] dark:text-white items-center">
-                          <p className="text-sm line-through">{el.price}</p>
-                          <p className="font-bold">Bepul</p>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="mt-4">
-                          <h4 className="text-[black] dark:text-white">
-                            {i.comment}
-                          </h4>
-                        </div>
-                      </div>
-                    </Link>
-                    <div className="mt-3 flex items-center gap-3">
-                      <button className="text-white flex items-center gap-2 bg-[orange] p-2 rounded-md">
-                        <FiEdit2 /> Edit
-                      </button>
-                      <button
-                        onClick={() => deleteComment(i.id)}
-                        className="text-white flex items-center gap-2 bg-[red] p-2 rounded-md"
-                      >
-                        <FiTrash2 /> delete
-                      </button>
-                    </div>
+        {data.length > 0
+          ? data?.map((el: any) => {
+              return (
+                <>
+                  <div>
+                    <h3>{el.fullName}</h3>
+                    <h2>{el.comment}</h2>
                   </div>
-                );
-              })}
-            </>
-          );
-        })}
+                </>
+              );
+            })
+          : ""}
+      </div>
+
+      <div className="absolute bottom-[80px]">
+        <Pagination
+          activePage={activePage}
+          setActivePage={setActivePage}
+          totalPage={totalPagesPaginate}
+          // totalPage={totalPage}
+        />
       </div>
     </div>
   );

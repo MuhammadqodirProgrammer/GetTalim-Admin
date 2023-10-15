@@ -32,7 +32,7 @@ export const Modal: React.FC<ModalProps> = ({
       onClick={handleOverlay}
       className={`overlay   ${modal ? "open" : ""}`}
     >
-      <div className={` modal_wrapper bg-white dark:bg-topColor w-[${width}]`}>
+      <div className={` w-[${width}] modal_wrapper bg-white dark:bg-topColor `}>
         <button
           onClick={() => setModal(false)}
           className={`btn modal_button text-black dark:text-white  rounded-0`}

@@ -132,8 +132,6 @@ export default function Benefits() {
           return (
             <>
               {data.map((el: any) => {
-                console.log(el);
-
                 return (
                   <div className=" relative w-full lg:w-[31%]  bg-[#eee] dark:bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto border-[#ddd] dark:border-none">
                     <Link
@@ -141,7 +139,7 @@ export default function Benefits() {
                       className=" flex flex-col relative  max-lg:m-auto  "
                     >
                       <Image
-                        className="min-h-[250px] h-full w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
+                        className="h-[250px] w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
                         src={`${baseUrlImg}/${el.imagePath}`}
                         alt="Picture of the course"
                         width={"1000"}

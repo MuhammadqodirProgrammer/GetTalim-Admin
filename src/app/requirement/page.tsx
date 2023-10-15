@@ -137,7 +137,7 @@ export default function Page() {
                       className=" flex flex-col relative  max-lg:m-auto  "
                     >
                       <Image
-                        className="min-h-[250px] h-full w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
+                        className="h-[250px] w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
                         src={`${baseUrlImg}/${el.imagePath}`}
                         alt="Picture of the course"
                         width={"1000"}
