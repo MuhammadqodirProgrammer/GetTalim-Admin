@@ -134,7 +134,7 @@ export default function Benefit() {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => setCourseRequirement(true)}
           >
-            Create Requirement
+            Create Benefits
           </button>
         </div>
       </div>
@@ -224,7 +224,7 @@ export default function Benefit() {
 
       <Modal
         width={"40%"}
-        title={"Create Course"}
+        title={"Create Benefit"}
         modal={courseRequirement}
         setModal={setCourseRequirement}
       >
@@ -236,7 +236,7 @@ export default function Benefit() {
             <input
               ref={requirementRef}
               className="w-full h-[30px] xl:h-[40px]  xl:w-[328px] p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
-              placeholder="Requirement"
+              placeholder="Benefits"
               type="text"
             />
             <select
@@ -248,7 +248,7 @@ export default function Benefit() {
               })}
             </select>
             <button className="bg-blue-500 mt-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Add Requirement
+              Add Benefits
             </button>
           </form>
         </div>

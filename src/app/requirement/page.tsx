@@ -238,7 +238,7 @@ export default function Requirement() {
 
       <Modal
         width={"40%"}
-        title={"Create Course"}
+        title={"Create Requirement"}
         modal={courseRequirement}
         setModal={setCourseRequirement}
       >
