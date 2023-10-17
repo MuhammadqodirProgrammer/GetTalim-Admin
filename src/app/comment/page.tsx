@@ -8,10 +8,13 @@ import { useEffect, useRef, useState } from "react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { Modal } from "@/components/Modal/Modal";
 import { Pagination } from "@/components/Pagination/Pagination";
+import { BsCalendarDay, BsTrash } from "react-icons/bs";
+import { AiOutlineEdit } from "react-icons/ai";
 
 export default function Comment() {
   const [data, setData] = useState<any>([]);
   const [activePage, setActivePage] = useState(1);
+  const [setDataIDDelete, setdeleteIDDelete] = useState<number>();
   const [totalPages, setTotalPages] = useState<any>([]);
   const [totalPagesPaginate, setTotalPagesPaginate] = useState<any>(1);
   const [createComment, setCreateComment] = useState<boolean>(false);
@@ -49,14 +52,16 @@ export default function Comment() {
     let res = await instance.get(
       `/api/course-comments/course/${commentId}?page=${activePage}`
     );
-    setData(res.data);
+
+    if (res.status === 200) {
+      setData(res.data);
+    }
   };
   const deleteComment = async (evt: any) => {
-    let response = await instance.delete(`/api/coursecomments/${evt}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    console.log(evt);
+
+    let response = await instance.delete(`/api/course-comments/${evt}`);
+    console.log(response);
 
     if (response.status === 200) {
       alert("Delete Comment Course");
@@ -67,7 +72,6 @@ export default function Comment() {
     getCourseComment();
     getCommentCourse();
   }, []);
-  // console.log(data);
 
   return (
     <div className="">
@@ -148,14 +152,86 @@ export default function Comment() {
           </select>
         </div>
       </div>
-      <div className="flex flex-wrap gap-5">
+      <div className="w-full">
         {data.length > 0
           ? data?.map((el: any) => {
               return (
                 <>
-                  <div>
-                    <h3>{el.fullName}</h3>
-                    <h2>{el.comment}</h2>
+                  <div className="card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flex-auto p-3">
+                      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {el.fullName}
+                      </h5>
+                      <p className="font-normal text-gray-700 dark:text-gray-400">
+                        {el.comment}
+                      </p>
+                      <div className="w-44">
+                        <button
+                          className="inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white"
+                          // onClick={openOffcanvas}
+                        >
+                          <span className="w-full">courses</span>
+                          <svg
+                            className="w-4 h-4 ml-2"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 10"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M1 5h12m0 0L9 1m4 4L9 9"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+
+                      <div className="flex items-center gap-5 mt-3 ">
+                        <div className="flex items-center gap-2">
+                          <BsCalendarDay size={16} />
+                          <p className=" dark:text-gray-400">
+                            {new Date(el?.createdAt).getDate() +
+                              "." +
+                              new Date(el?.createdAt).getMonth() +
+                              "." +
+                              new Date(el?.createdAt).getFullYear() +
+                              " " +
+                              new Date(el?.createdAt).getHours() +
+                              ":" +
+                              new Date(el?.createdAt).getMinutes()}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <BsCalendarDay size={16} />
+                          <p className=" dark:text-gray-400">
+                            {new Date(el?.updatedAt).getDate() +
+                              "." +
+                              new Date(el?.updatedAt).getMonth() +
+                              "." +
+                              new Date(el?.updatedAt).getFullYear() +
+                              " " +
+                              new Date(el?.updatedAt).getHours() +
+                              ":" +
+                              new Date(el?.updatedAt).getMinutes()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex-col p-6 mt-3 gap-3">
+                      <button
+                        className="bg-[red] rounded-lg p-2"
+                        onClick={() => {
+                          // setdeleteIDDelete(el?.id);
+                          deleteComment(el?.id);
+                          // setdeleteModal(true);
+                        }}
+                      >
+                        <BsTrash color={"white"} size={30} />
+                      </button>
+                    </div>
                   </div>
                 </>
               );
@@ -163,14 +239,12 @@ export default function Comment() {
           : ""}
       </div>
 
-      <div className="absolute bottom-[80px]">
-        <Pagination
-          activePage={activePage}
-          setActivePage={setActivePage}
-          totalPage={totalPagesPaginate}
-          // totalPage={totalPage}
-        />
-      </div>
+      <Pagination
+        activePage={activePage}
+        setActivePage={setActivePage}
+        totalPage={totalPagesPaginate}
+        // totalPage={totalPage}
+      />
     </div>
   );
 }

@@ -1,67 +1,72 @@
 "use client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import instance, { baseUrlImg } from "../api/api";
+import NewCourses from "@/components/NewCourses/NewCourses";
 import Image from "next/image";
+import Link from "next/link";
+import BgImage from "public/images/react-native.webp";
+import instance, { baseUrlImg } from "../api/api";
+import { useEffect, useRef, useState } from "react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { Modal } from "@/components/Modal/Modal";
+import { Pagination } from "@/components/Pagination/Pagination";
+import { BsCalendarDay, BsTrash } from "react-icons/bs";
+import { AiOutlineEdit } from "react-icons/ai";
 
-export default function Benefits() {
+export default function Benefit() {
   const [data, setData] = useState<any>([]);
-  const [requirement, setRequirement] = useState([]);
-  const [id, setId] = useState([]);
-  const [loginModal, setLoginModal] = useState(false);
+  const [activePage, setActivePage] = useState(1);
+  const [courseRequirement, setCourseRequirement] = useState<boolean>(false);
+  const [course, setCourse] = useState<any>([]);
+  const [commentId, setCommentId] = useState();
 
-  const getCourseBenefits = async () => {
-    let response = await instance.get("/api/coursebenefits?page=1", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    setRequirement(response.data);
-    let id = await response.data.map((el: any) => el.courseId);
-    setId(id);
-  };
+  const courseIdRef: any = useRef();
+  const requirementRef: any = useRef();
+  const selectRef: any = useRef();
 
-  const getCourse = async () => {
-    let response = await instance.get(`/api/courses/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const res: any = response.data;
-    setData(res);
-  };
-  useEffect(() => {
-    getCourseBenefits();
-    getCourse();
-  }, []);
-
-  const handlePost = (evt: any) => {
-    evt.preventDefault();
-    const newData = new FormData();
-    newData.append("Name", evt.target[0].value);
-    newData.append("CourseId", evt.target[1].value);
-
-    const postBenefit = async () => {
-      let response = await instance.post("/api/coursebenefits", newData);
-      if (response.status === 200) {
-        alert("Created Benefit Course");
-        getCourseBenefits();
-      }
-    };
-    postBenefit();
-  };
-  const deleteBenefit = async (evt: any) => {
-    let response = await instance.delete(`/api/coursebenefits/${evt}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 200) {
-      getCourseBenefits();
+  const getCourseComment = async () => {
+    const res = await instance.get(`api/courses?page=${activePage}`);
+    if (res.status === 200) {
+      setCourse(res.data);
     }
   };
+
+  const handleChange = (evt: any) => {
+    evt.preventDefault();
+    setCommentId(evt.target.value);
+    getCommentCourse();
+  };
+
+  const getCommentCourse = async () => {
+    let res = await instance.get(`/api/coursebenefits/course/${commentId}`);
+
+    if (res.status === 200) {
+      setData(res.data);
+    }
+  };
+  const deleteComment = async (evt: any) => {
+    let response = await instance.delete(`/api/coursebenefits/${evt}`);
+    if (response.status === 200) {
+      getCourseComment();
+      alert("Delete Comment Course");
+    }
+  };
+
+  const handleCreateRequirement = async (evt: any) => {
+    evt.preventDefault();
+    const formData = new FormData();
+    formData.append("Name", requirementRef?.current?.value);
+    formData.append("CourseId", selectRef?.current?.value);
+
+    let res = await instance.post("/api/coursebenefits", formData);
+    if (res.status === 200) {
+      getCommentCourse();
+      setCourseRequirement(false);
+    }
+  };
+
+  useEffect(() => {
+    getCourseComment();
+    getCommentCourse();
+  }, []);
 
   return (
     <div className="">
@@ -109,137 +114,145 @@ export default function Benefits() {
           </li>
         </ol>
       </nav>
-      <h1 className="text-textColor text-[30px]"> Course Benefits</h1>
-      <div>
-        <h2 className="text-black dark:text-white">Post Course Benefits </h2>
-        <div>
-          <form
-            onSubmit={handlePost}
-            className="flex mt-5 flex-col gap-3 w-[50%]"
+      <div className="flex items-center justify-between my-5">
+        <h2 className="text-[30px]  lg:text-[36px]  text-black dark:text-white font-semibold  ">
+          <span className="text-mainColor">Barcha </span> Benefits
+        </h2>
+        <div className="flex  gap-3">
+          <select
+            onChange={handleChange}
+            ref={courseIdRef}
+            className="p-2 max-w-[750px] rounded-md"
           >
-            <input type="text" className="p-3 rounded-md" placeholder="Name" />
-            <select className="p-2 rounded-md">
-              <option value="1">1</option>
-            </select>
-            <button className="bg-[blue] w-[95px] text-white p-3 rounded-md">
-              Submit
-            </button>
-          </form>
+            {/* <option selected>Change Course Comment</option> */}
+
+            {course.map((el: any) => {
+              return <option value={`${el?.id}`}>{el?.name}</option>;
+            })}
+          </select>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => setCourseRequirement(true)}
+          >
+            Create Requirement
+          </button>
         </div>
       </div>
-      <div className="flex flex-wrap gap-5 ">
-        {requirement.map((i: any) => {
-          return (
-            <>
-              {data.map((el: any) => {
-                return (
-                  <div className=" relative w-full lg:w-[31%]  bg-[#eee] dark:bg-newCourcesBg shadow-[0_25px_50px_-12px_#00000040] rounded-md p-5 max-lg:m-auto border-[#ddd] dark:border-none">
-                    <Link
-                      href="/singleProduct"
-                      className=" flex flex-col relative  max-lg:m-auto  "
-                    >
-                      <Image
-                        className="h-[250px] w-full object-cover rounded-md transition ease-in-out hover:opacity-75"
-                        src={`${baseUrlImg}/${el.imagePath}`}
-                        alt="Picture of the course"
-                        width={"1000"}
-                        height={"1000"}
-                      />
-                      <h5 className="pt-2 text-sm text-newCourcesPreTitleColor text-center uppercase">
-                        mobil dastur
-                      </h5>
-                      <h6 className="pt-3 pb-3 font-medium text-[black] dark:text-white text-center">
+      <div className="w-full">
+        {data.length > 0
+          ? data?.map((el: any) => {
+              return (
+                <>
+                  <div className="card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flex-auto p-3">
+                      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {el.name}
-                      </h6>
-                      <hr className="h-1 w-full bg-[#000] dark:bg-CoursesHr" />
-                      <div className="flex justify-between pt-5 items-center">
-                        <div className="flex gap-3 text-white items-center">
-                          <button className="text-slate-700 dark:text-newCourcesBtn border border-solid border-newCourcesBtn font-medium px-3 py-1 rounded-md transition ease-in-out  hover:bg-newCourcesBtnHover">
-                            batafsil
-                          </button>
-                        </div>
-                        <div className="flex gap-3 text-[black] dark:text-white  items-center">
-                          <p className="text-sm line-through">{el.price}</p>
-                          <p className="font-bold">Bepul</p>
-                        </div>
+                      </h5>
+                      <div className="w-44">
+                        <button
+                          className="inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white"
+                          // onClick={openOffcanvas}
+                        >
+                          <span className="w-full">courses</span>
+                          <svg
+                            className="w-4 h-4 ml-2"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 10"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M1 5h12m0 0L9 1m4 4L9 9"
+                            />
+                          </svg>
+                        </button>
                       </div>
-                      <div>
-                        <h2 className="text-[25px] text-[black] dark:text-white mt-5 ">
-                          Course all Benefits
-                        </h2>
 
-                        <div className="">
-                          <h4 className="text-[black] dark:text-white">
-                            {i.name}
-                          </h4>
+                      <div className="flex items-center gap-5 mt-3 ">
+                        <div className="flex items-center gap-2">
+                          <BsCalendarDay size={16} />
+                          <p className=" dark:text-gray-400">
+                            {new Date(el?.createdAt).getDate() +
+                              "." +
+                              new Date(el?.createdAt).getMonth() +
+                              "." +
+                              new Date(el?.createdAt).getFullYear() +
+                              " " +
+                              new Date(el?.createdAt).getHours() +
+                              ":" +
+                              new Date(el?.createdAt).getMinutes()}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <BsCalendarDay size={16} />
+                          <p className=" dark:text-gray-400">
+                            {new Date(el?.updatedAt).getDate() +
+                              "." +
+                              new Date(el?.updatedAt).getMonth() +
+                              "." +
+                              new Date(el?.updatedAt).getFullYear() +
+                              " " +
+                              new Date(el?.updatedAt).getHours() +
+                              ":" +
+                              new Date(el?.updatedAt).getMinutes()}
+                          </p>
                         </div>
                       </div>
-                    </Link>
-                    <div className="mt-3 flex items-center gap-3">
+                    </div>
+                    <div className="flex flex-col p-6 mt-3 gap-3">
                       <button
+                        className="bg-[red] rounded-lg p-2"
                         onClick={() => {
-                          setLoginModal(true);
+                          // setdeleteIDDelete(el?.id);
+                          deleteComment(el?.id);
+                          // setdeleteModal(true);
                         }}
-                        className="text-white flex items-center gap-2 bg-[orange] p-2 rounded-md"
                       >
-                        <FiEdit2 /> Edit
-                      </button>
-                      <button
-                        onClick={() => deleteBenefit(i.id)}
-                        className="text-white flex items-center gap-2 bg-[red] p-2 rounded-md"
-                      >
-                        <FiTrash2 /> delete
+                        <BsTrash color={"white"} size={30} />
                       </button>
                     </div>
                   </div>
-                );
-              })}
-            </>
-          );
-        })}
-        <Modal
-          width={"480px"}
-          title={"Edit"}
-          modal={loginModal}
-          setModal={setLoginModal}
-        >
-          <div className=" md:p-5 ">
-            <form
-              className="flex flex-col items-center gap-3 justify-center"
-              // onSubmit={handleSubmit}
-            >
-              <div className="flex flex-col gap-2">
-                <label htmlFor="name">Username</label>
-                <input
-                  className="w-full p-2 border border-[grey]"
-                  placeholder="Username"
-                  type="text"
-                  name="name"
-                  id="name"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="password">Password</label>
-                <input
-                  className="w-full p-2 border border-[grey]"
-                  placeholder="*****"
-                  type="password"
-                  name="phoneNumber"
-                  id="phone"
-                />
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  className="bg-mainColor p-3 mt-3 text-white w-[200px]"
-                >
-                  Log In
-                </button>
-              </div>
-            </form>
-          </div>
-        </Modal>
+                </>
+              );
+            })
+          : ""}
       </div>
+
+      <Modal
+        width={"40%"}
+        title={"Create Course"}
+        modal={courseRequirement}
+        setModal={setCourseRequirement}
+      >
+        <div className=" md:p-5 ">
+          <form
+            className="flex flex-col items-center gap-3 justify-center"
+            onSubmit={handleCreateRequirement}
+          >
+            <input
+              ref={requirementRef}
+              className="w-full h-[30px] xl:h-[40px]  xl:w-[328px] p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
+              placeholder="Requirement"
+              type="text"
+            />
+            <select
+              ref={selectRef}
+              className="w-full h-[30px] xl:h-[40px]  xl:w-[328px] p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
+            >
+              {course.map((el: any) => {
+                return <option value={el.id}>{el.id}</option>;
+              })}
+            </select>
+            <button className="bg-blue-500 mt-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Add Requirement
+            </button>
+          </form>
+        </div>
+      </Modal>
     </div>
   );
 }
