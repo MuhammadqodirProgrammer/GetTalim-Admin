@@ -26,7 +26,7 @@ const Header = () => {
   };
   return (
     <>
-      <header className="  header bg-[#fff] dark:bg-topColor text-black dark:text-white  fixed w-full z-50 top-0 left-0 flex items-center">
+      <header className="  header bg-[#fff] dark:bg-topColor text-black dark:text-white  fixed w-full z-30 top-0 left-0 flex items-center">
         <div className="flex  gap-x-5 m-auto  justify-between container items-center">
           <Link
             href="/"
@@ -135,7 +135,7 @@ const Header = () => {
                 </button>
               </div>
               <div
-                className={`z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600`}
+                className={`z-30 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600`}
               >
                 <div className="px-4 py-3" role="none">
                   <p
