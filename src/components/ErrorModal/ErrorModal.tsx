@@ -22,7 +22,6 @@ export const ErrorModal: React.FC<ModalProps> = ({
 evt.preventDefault()
 router.push("/auth")
 localStorage.removeItem("token")
-
       setModal(false);
   };
 
@@ -32,14 +31,9 @@ localStorage.removeItem("token")
       className={`overlay   ${modal ? "open" : ""}`}
     >
       <div className={` w-[40%] modal_wrapper bg-white dark:bg-topColor `}>
-        <button
-          onClick={() => setModal(false)}
-          className={`btn modal_button text-black dark:text-white  rounded-0`}
-        >
-          <AiOutlineClose size={20} />
-        </button>
+      
         <div className={` modal_header`}>
-          <h3 className="font-semibold text-[30px] text-black dark:text-white">
+          <h3 className="font-semibold text-center md:text-[26px] text-[20px] text-black dark:text-white">
             Tokeningiz eskirgan, yoki sz  admin emasiz 
           </h3>
         </div>
@@ -49,7 +43,7 @@ localStorage.removeItem("token")
 								className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
 								onClick={logInFunc}
 							>
-								Cancel
+							 Go To Login 
 							</button>
         </div>
       </div>
