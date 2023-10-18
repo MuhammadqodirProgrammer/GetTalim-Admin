@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import instance from '../api/api';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import toast, { Toaster } from 'react-hot-toast';
 
 import logo from '../../../public/images/logo2.png';
 import hand from '../../../public/images/hand.png';
@@ -14,6 +15,8 @@ export default function Page() {
   const router = useRouter()
 	const [error, seterror] = useState<boolean>(false);
 
+	const loginNotify = () =>
+		toast.success('Successfully Logined');
 	const emailRef = useRef<HTMLInputElement>();
 	const pasRef = useRef<HTMLInputElement>();
 	const HendleSubmit = async (e: any) => {
@@ -32,11 +35,12 @@ export default function Page() {
 			},
 		});
 console.log(response.status)
-		if (response.status == 201) {
+		if (response.status == 200) {
 			let token = response?.data?.token;
 			localStorage.setItem('token', token);
-      router.replace('/verify');
 
+			loginNotify()
+      router.replace('/');
 		} else {
 			console.log(response.data);
 			seterror(true);
@@ -56,7 +60,7 @@ console.log(response.status)
 					<Image
 						src={logo}
 						alt='img'
-						className=' w-[380px] h-[300px] objetct-cover   '
+						className=' w-[300px] h-[280px] objetct-cover   '
 					/>
 
 					<h3 className=' text-[#292731] text-[26px]  my-[20px] '> Login </h3>
@@ -202,6 +206,9 @@ console.log(response.status)
 					</form>
 				</div>
 			</div>
+
+
+			<Toaster/>
 		</section>
 	);
 }
