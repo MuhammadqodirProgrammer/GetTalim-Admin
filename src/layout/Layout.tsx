@@ -12,7 +12,7 @@ export default function Layout({ children }: any) {
   const router: any = useRouter();
 
   if (!token) {
-    router.replace("/auth");
+    router.replace("/login");
   } else {
     // router.replace("/");
   }

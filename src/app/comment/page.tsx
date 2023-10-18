@@ -43,7 +43,6 @@ export default function Comment() {
   };
 
   const getCommentCourse = async (data: any) => {
-    console.log(data);
     let res = await instance.get(
       `/api/course-comments/course/${data}?page=${activePage}`
     );

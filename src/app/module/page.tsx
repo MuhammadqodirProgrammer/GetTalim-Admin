@@ -11,12 +11,22 @@ import { GiSandsOfTime } from 'react-icons/gi';
 import instance from "../api/api";
 import toast, { Toaster } from "react-hot-toast";
 import { Pagination } from "@/components/Pagination/Pagination";
+import { Modal } from "@/components/Modal/Modal";
+import { ErrorModal } from "@/components/ErrorModal/ErrorModal";
 const notify = () => toast.success("Successfully Created Module");
 const notify2 = () => toast.error("Error While Creating Module");
 const notify3 = () => toast.success("Successfully Edited Module");
 const notify4 = () => toast.success("Successfully Deleted Module");
 const notify5 = () => toast.error("Error While Editing Module");
 const notify6 = () => toast.error("Error While Deleting Module");
+
+
+const videonotify = () => toast.success("Successfully Created Video");
+const videonotify2 = () => toast.error("Error While Creating Video");
+const videonotify3 = () => toast.success("Successfully Edited Video");
+const videonotify4 = () => toast.success("Successfully Deleted Video");
+const videonotify5 = () => toast.error("Error While Editing Video");
+const videonotify6 = () => toast.error("Error While Deleting Video");
 
 export default function Module() {
 	const myCourseId = localStorage.getItem('course_id');
@@ -28,7 +38,11 @@ export default function Module() {
   const [moduleVideos, setModuleVideos] = useState<any>([]);
   const [showModal, setShowModal] = useState<any>(false);
   const [editshowModal, setEditShowModal] = useState<any>(false);
+  const [unauthorized, setUnauthorized] = useState<any>(false);
+  const [editVideoModal, setEditVideoModal] = useState<any>(false);
   const [Id, handleId] = useState<any>("");
+  const [moduleId, setModuleId] = useState<any>("");
+  const [videoId, setVideoId] = useState<any>("");
   const [activePage, setActivePage] = useState<any>(1);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,15 +60,18 @@ export default function Module() {
 		instance
 			.get(`api/CourseModuls/videos/student/${myCourseId}`)
 			.then((res: any) => {
-				console.log(res?.data ,"result my data videosss ");
+				console.log(res ,"status  ");
 				
-				if (res.data?.length) {
+				if (res?.data?.length) {
 					setData(res?.data);
 	
-				}
+				} else if(res?.unauthorized ){
+          setUnauthorized(true)
+        }
 			})
 			.catch((err: any) => {
-				console.log(err);
+				console.log(err  ,"eror status");
+
 			});
 	};
 
@@ -71,15 +88,7 @@ export default function Module() {
       });
   };
 
-  // const getModule = async () => {
-  //   let response = await instance.get(`/api/CourseModuls?page=${activePage}`, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   setData(response.data);
-  //   console.log(response.data);
-  // };
+ 
 
   useEffect(() => {
     getCourseModules()
@@ -108,6 +117,8 @@ export default function Module() {
       getCourseModules()
     } else if (response.data == false) {
       notify2();
+    }else if(response?.unauthorized){
+      setUnauthorized(true)
     } else {
       notify2();
     }
@@ -121,6 +132,8 @@ export default function Module() {
     if (response.status === 200 && response.data == true) {
       notify4();
       getCourseModules()
+    }else if(response?.unauthorized){
+      setUnauthorized(true)
     } else {
       notify6();
     }
@@ -159,86 +172,127 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 		}
 	}
 
+
+
   async function GetModuleVideos(id: any) {
 		const res = await instance.get(`api/videos/modul/${id}`);
-		const res2 = await instance.get(`api/CourseModuls/${id}`);
-
-    console.log(res ,"resssssssssssssss videos moduel");
-		
+    openOffcanvas()
+    setModuleId(id)
 		if (res.status == 200) {
       setModuleVideos(res?.data)
+		}else if(res?.status ==401){
+      setUnauthorized(true)
+    }
+	}
+
+  async function GetModuleOne(id: any) {
+		const res2 = await instance.get(`api/CourseModuls/${id}`);
+		if (res2?.status == 200) {
       setOneDataForVideos(res2?.data)
-      openOffcanvas()
 		}
 	}
-  console.log(oneData ,"oneData");
-
-
-
-
 
   // start video code 
 
 
 
 	const [videoModal, setVideoModal] = useState(false);
+	const [deleteVideoModal, setdeleteVideoModal] = useState(false);
+	const [deleteVideoId, setdeleteVideoId] = useState("");
 	const [videoID, setVideoID] = useState<any>();
 	const [createVideoModal, setcreateVideoModal] = useState(false);
 	const [videos, setVideos] = useState<any>([]);
+	const [editOneVideoData, seteditOneVideoData] = useState<any>({});
 	const [totalPages, setTotalPages] = useState<any>([]);
 	const [createVideo, setcreateVideo] = useState<any>({});
 	const videoUrl = 'https://youtu.be/5oH9Nr3bKfw?si=Jx9C41T3R6fItjpg';
+  // my refs
 	const videoNameRef: any = useRef<HTMLInputElement>();
 	const videoPathRef: any = useRef<HTMLInputElement>();
 	const videoLengthRef: any = useRef<HTMLInputElement>();
-	const courseModulIdRef: any = useRef<HTMLInputElement>();
+  // edit
+  const editvideoNameRef: any = useRef<HTMLInputElement>();
+	const editvideoPathRef: any = useRef<HTMLInputElement>();
+	const editvideoLengthRef: any = useRef<HTMLInputElement>();
 
-	// const getCourseModules = async () => {
-	// 	instance
-	// 		.get(`api/CourseModuls/videos/student/${'myCourseId'}`)
-	// 		.then((res: any) => {
-	// 			console.log(res?.data ,"result my data videosss ");
-				
-	// 			if (res.data?.length) {
-	// 				setVideos(res?.data?.[0]?.videos)
-	// 				setCourses(res?.data);
-	// 				const xPagination = JSON.parse(res.headers['x-pagination']);
-	// 				console.log(xPagination, 'courses xpagination');
-	// 				const arr: any = [];
-	// 				for (let i = 0; i < xPagination?.TotalPages; i++) {
-	// 					arr.push(i);
-	// 				}
-
-	// 				setTotalPages(arr);
-	// 			}
-	// 		})
-	// 		.catch((err: any) => {
-	// 			console.log(err);
-	// 		});
-	// };
-
-
+  
+  async function GetOneVideo(id: any) {
+		const res = await instance.get(`api/videos/${id}`);
+		setEditVideoModal(true);
+    setVideoId(id)
+    console.log(res?.data ,"edit malumotlari");
+    
+		if (res.status == 200) {
+			seteditOneVideoData(res?.data);
+		}
+	}
 
 	const createVideoFunc = async (e: any) => {
 		e.preventDefault();
 		const formData = new FormData();
 
-		formData.append('name', videoNameRef?.current?.value);
-		formData.append('path', videoPathRef?.current?.value);
-		formData.append('length', videoLengthRef?.current?.value);
-		formData.append('CourseModulId', courseModulIdRef?.current?.value);
+		formData.append('Name', videoNameRef?.current?.value);
+		formData.append('VideoPath', videoPathRef?.current?.value);
+		formData.append('Length', videoLengthRef?.current?.value);
+		formData.append('CourseModulId', moduleId);
 
-		console.log(
-			videoNameRef?.current?.value,
-			videoPathRef?.current?.value,
-			videoLengthRef?.current?.value
-		);
+	
 
 		let response = await instance.post(`api/videos`, formData);
 		// setData(response.data);
-		console.log(response, 'response');
+		console.log(response, 'response video create');
+   if( response?.status ==200){
+    GetModuleVideos(moduleId)
+    setcreateVideoModal(false)
+    videonotify()
+
+    videoNameRef.current.value = " "
+videoPathRef.current.value = " "
+videoLengthRef.current.value = " "
+   }else{
+    videonotify2()
+   }
 	};
 
+
+
+
+
+  const editVideoFunc = async (e: any) => {
+		e.preventDefault();
+		const formData = new FormData();
+
+		formData.append('Name', editvideoNameRef?.current?.value);
+		formData.append('VideoPath', editvideoPathRef?.current?.value);
+		formData.append('Length', editvideoLengthRef?.current?.value);
+		formData.append('CourseModulId', moduleId);
+
+		let response = await instance.put(`api/videos/${editOneVideoData?.id}`, formData);
+		console.log(response, 'response video edit');
+   if( response?.status ==200){
+    GetModuleVideos(moduleId)
+    setEditVideoModal(false)
+    videonotify3()
+   }else{
+    videonotify5()
+   }
+	};
+
+ 
+ 
+ 
+  async function handleDeleteVideo(evt: any) {
+    evt.preventDefault();
+  
+    let response = await instance.delete(`api/videos/${deleteVideoId}`);
+    if (response.status === 200 && response.data == true) {
+      videonotify4();
+      GetModuleVideos(moduleId)
+      setdeleteVideoModal(false)
+    } else {
+      videonotify6();
+    }
+  }
 
 
 
@@ -307,7 +361,10 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
                   {el.name}
                 </h5>
                 <div className="w-44">
-                <button className='inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white' onClick={()=>GetModuleVideos(el?.id)} >
+                <button className='inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white' onClick={()=>{
+                  GetModuleVideos(el?.id);
+                  GetModuleOne(el?.id)
+                }} >
 										<span className='w-full'>Add video</span>
 										<svg
 											className='w-4 h-4 ml-2'
@@ -514,46 +571,28 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 
 
 
-<div className={`fixed top-0 left-0 w-[100%] h-screen bg-white dark:bg-[#1F2937] z-50 transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+<div className={`fixed top-0 left-0 w-[100%] min-h-screen pl-4 pr-2 bg-white dark:bg-[#1F2937] z-40 transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
  {/* Close button */}
-      <button className="absolute top-4 right-4  text-black dark:text-white  rounded-0" onClick={closeOffcanvas}>
+      <button className="absolute top-4 right-8  text-black dark:text-white  rounded-0" onClick={closeOffcanvas}>
         <AiOutlineClose size={24} />
       </button>
 
 
 
+
+
+
       {/* Offcanvas content */}
-      <div className="p-4">
-        <h2>Offcanvas Content</h2>
+          <div className="p-4   flex-none min-w-full px-4 sm:px-6 md:px-0  overflow-auto scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100 scrollbar-thumb:!rounded scrollbar-thumb:!bg-slate-300 scrollbar-track:!rounded dark:scrollbar-track:!bg-slate-500/[0.16] dark:scrollbar-thumb:!bg-slate-500/50  lg:supports-scrollbars:pr-2 max-h-screen ">
+      
 
-
-
-        <div className="card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700   ">
+        <div className="card flex border mt-[30px] bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700   ">
               <div className="flex-auto p-3 relative">
-                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-2xl font-bold tracking-tight my-3 pb-2  text-gray-900 dark:text-white">
                   {oneDataForVideos?.name}
                 </h5>
-                <div className="w-44">
-                <button className='inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white' onClick={()=>GetModuleVideos(el?.id)} >
-										<span className='w-full'>Add video</span>
-										<svg
-											className='w-4 h-4 ml-2'
-											aria-hidden='true'
-											xmlns='http://www.w3.org/2000/svg'
-											fill='none'
-											viewBox='0 0 14 10'
-										>
-											<path
-												stroke='currentColor'
-												strokeLinecap='round'
-												strokeLinejoin='round'
-												strokeWidth={2}
-												d='M1 5h12m0 0L9 1m4 4L9 9'
-											/>
-										</svg>
-									</button>
-                </div>
-                <div className="flex items-center gap-5 absolute bottom-1">
+              
+                <div className="flex items-center gap-5  absolute bottom-1">
                   <div className="flex items-center gap-2">
                     <BsCalendarDay size={16} />
                     <p className=" dark:text-gray-400">
@@ -584,26 +623,28 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col p-6 mt-3 gap-3">
-                <button
-                  className="bg-[orange] rounded-lg p-2 "
-                  id={oneDataForVideos?.id}
-                  onClick={() => {
-                    GetOne(el?.id)
-                  }}
-                >
-                  <AiOutlineEdit color={"white"} size={30} id={oneDataForVideos?.id} />
-                </button>
-                <button
-                  className="bg-[red] rounded-lg p-2"
-                  onClick={handleDelete}
-                  id={oneDataForVideos?.id}
-                >
-                  <BsTrash color={"white"} size={30} id={oneDataForVideos?.id} />
-                </button>
-              </div>
+            
             </div>
 
+            <div className="flex items-center justify-between  my-3 ">
+
+        
+
+<h5 className="text-2xl my-2 font-bold text-center tracking-tight text-gray-900 dark:text-white">
+        Module videos
+        </h5>
+
+
+
+        <button
+    className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+    type="button"
+    onClick={() => setcreateVideoModal(true)}
+  >
+    Create videos
+  </button>
+
+  </div>
         <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3'>
 				{moduleVideos?.length ? (
 					moduleVideos?.map((el: any) => {
@@ -635,12 +676,15 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 									<button
 										className='bg-[orange] rounded-lg p-2 '
 										onClick={() => {
-											GetOne(el?.id);
+											GetOneVideo(el?.id);
 										}}
 									>
 										<AiOutlineEdit color={'white'} size={30} />
 									</button>
-									<button className='bg-[red] rounded-lg p-2 '>
+									<button className='bg-[red] rounded-lg p-2 '  onClick={()=>{
+                    setdeleteVideoId(el?.id);
+                    setdeleteVideoModal(true)
+                    }} >
 										<BsTrash color={'white'} size={30} />
 									</button>
 								</div>
@@ -655,16 +699,172 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 				)}
 			</div>
 
-      </div>
-     
-
-
-
-
-
-    </div>
+         </div>
+</div>
 
    
+
+
+
+      {/* create modal  */}
+
+      <Modal
+        width={"500px"}
+        title={"Create Videos"}
+        modal={createVideoModal}
+        setModal={setcreateVideoModal}
+      >
+        <div className=" md:p-5 ">
+          <form
+            className="flex flex-col items-center gap-3 justify-center"
+            onSubmit={createVideoFunc}
+          >
+            <div className="flex flex-col gap-2">
+              <label htmlFor="name">Name</label>
+              <input
+                className="w-full p-2 border rounded  border-gray-500 outline-none  focus:border-gray-700  bg-transparent"
+                placeholder="Video name"
+                type="text"
+                ref={videoNameRef}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="password">Video path</label>
+              <input
+                className="w-full p-2 border rounded  border-gray-500 outline-none  focus:border-gray-700  bg-transparent "
+                placeholder="Video path"
+                type="text"
+                ref={videoPathRef}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="password">Video langth</label>
+              <input
+                className="w-full p-2 border rounded  border-gray-500 outline-none  focus:border-gray-700  bg-transparent  "
+                placeholder="Video langth"
+                type="text"
+                ref={videoLengthRef}
+              />
+            </div>
+
+
+            <div className="flex gap-x-2">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+              >
+                Add
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                type="button"
+                onClick={() => setcreateVideoModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </Modal>
+
+      {/* edit modal  */}
+
+      <Modal
+        width={"480px"}
+        title={"Edit"}
+        modal={editVideoModal}
+        setModal={setEditVideoModal}
+      >
+        <div className=" md:p-5 ">
+          <form
+            className="flex flex-col items-center gap-3 justify-center z-50"
+            onSubmit={editVideoFunc}
+          >
+            <div className="flex flex-col gap-2">
+              <label htmlFor="name">Name</label>
+              <input
+                className="w-full p-2 border rounded  border-gray-500 outline-none  focus:border-gray-700  bg-transparent"
+                placeholder="Video name"
+                type="text"
+                defaultValue={editOneVideoData?.name}
+                ref={editvideoNameRef}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="password">Video path</label>
+              <input
+                className="w-full p-2 border rounded  border-gray-500 outline-none  focus:border-gray-700  bg-transparent "
+                placeholder="Video path"
+                type="text"
+                defaultValue={editOneVideoData?.videoPath}
+                ref={editvideoPathRef}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="password">Video langth</label>
+              <input
+                className="w-full p-2 border rounded  border-gray-500 outline-none  focus:border-gray-700  bg-transparent  "
+                placeholder="Video langth"
+                type="text"
+                defaultValue={editOneVideoData?.length}
+                ref={editvideoLengthRef}
+              />
+            </div>
+
+            <div className="flex gap-x-2">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Add
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => setEditVideoModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </Modal>
+
+
+	{/* delete modal  */}
+
+  <Modal
+				width={'480px'}
+				title={'video '}
+				modal={deleteVideoModal}
+				setModal={setdeleteVideoModal}
+			>
+				<div className=' md:p-5 '>
+					<form
+						className='flex flex-col items-center gap-3 justify-center'
+						onSubmit={handleDeleteVideo}
+					>
+						<h2 className='mb-2 text-[22px] text-gray-500 dark:text-gray-400'>
+							{' '}
+							Do you want to delete this video?{' '}
+						</h2>
+						<div className='flex gap-x-2'>
+							<button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+								Yes
+							</button>
+							<button
+								type='button'
+								className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
+								onClick={() => setdeleteVideoModal(false)}
+							>
+								Cancel
+							</button>
+						</div>
+					</form>
+				</div>
+			</Modal>
+
+
+<ErrorModal
+modal={unauthorized}
+setModal={setUnauthorized}
+/>
       <Toaster />
     </div>
   );
