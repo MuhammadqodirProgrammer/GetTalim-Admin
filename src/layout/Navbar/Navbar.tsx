@@ -154,21 +154,6 @@ function Navbar() {
               </div>
             </button>
           </Link>
-          <Link className="nav_link" href="/coursevideo">
-            <button
-              type="button"
-              className={
-                pathname ==( "/coursevideo" || "/video")
-                  ? "active_link nav_link-button"
-                  : "nav_link-button"
-              }
-            >
-              <div className="flex items-center gap-x-2 justify-start">
-                <RiMovie2Line size={20} />
-                <p className="chakra-text css-0">Course Videos</p>
-              </div>
-            </button>
-          </Link>
           <Link className="nav_link" href="/comment">
             <button
               type="button"
@@ -227,6 +212,7 @@ function Navbar() {
               </div>
             </button>
           </Link>
+
         </div>
       </nav>
     </>
