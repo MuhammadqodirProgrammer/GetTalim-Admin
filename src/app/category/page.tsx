@@ -186,21 +186,21 @@ export default function Category() {
 					Create Category
 				</button>
 			</nav>
-			{data.map((el: any) => {
+			{data?.map((el: any) => {
 				return (
 					<>
 						<div className='card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
 							<div className='flex-auto p-3'>
 								<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
-									{el.name}
+									{el?.name}
 								</h5>
 								<p className='font-normal text-gray-700 dark:text-gray-400'>
-									{el.description}
+									{el?.description}
 								</p>
 								<div className='w-44'>
 									<button
 										className='inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white'
-										onClick={openOffcanvas}
+										// onClick={openOffcanvas}
 									>
 										<span className='w-full'>courses</span>
 										<svg
