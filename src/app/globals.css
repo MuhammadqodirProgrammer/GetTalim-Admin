@@ -8,12 +8,12 @@
   --background-end-rgb: rgb(26, 32, 44);
 } */
 
-.pagination{
+.pagination {
   display: flex;
   align-items: center;
-row-gap: 15px;
-flex-wrap: wrap;
-margin: 0 auto;
+  row-gap: 15px;
+  flex-wrap: wrap;
+  margin: 0 auto;
 
 }
 

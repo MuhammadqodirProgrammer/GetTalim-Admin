@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
@@ -7,21 +7,17 @@ import FamousCourses from "@/components/FamousCourses/FamousCourses";
 import NewCourses from "@/components/NewCourses/NewCourses";
 import { useRouter } from "next/navigation";
 
-
 export default function Layout({ children }: any) {
-  const token =localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   const router: any = useRouter();
 
-  console.log(token ,"token");
-  
   if (!token) {
     router.replace("/auth");
-  }else {
+  } else {
     // router.replace("/");
   }
 
-
-  if(token){
+  if (token) {
     return (
       <div>
         <div>
@@ -34,13 +30,11 @@ export default function Layout({ children }: any) {
         </div>
       </div>
     );
-  }
-  else{
+  } else {
     return (
       <div>
         <div className="  ">{children}</div>
       </div>
     );
   }
- 
 }

@@ -42,20 +42,21 @@ export default function Comment() {
     }
   };
 
-  const handleChange = (evt: any) => {
-    evt.preventDefault();
-    setCommentId(evt.target.value);
-    getCommentCourse();
-  };
-
-  const getCommentCourse = async () => {
+  const getCommentCourse = async (data: any) => {
+    console.log(data);
     let res = await instance.get(
-      `/api/course-comments/course/${commentId}?page=${activePage}`
+      `/api/course-comments/course/${data}?page=${activePage}`
     );
-
+    
     if (res.status === 200) {
       setData(res.data);
     }
+  };
+  const handleChange = (evt: any) => {
+    evt.preventDefault();
+    // setCommentId(evt.target.value);
+    // console.log(evt.target.value);
+    getCommentCourse(evt.target.value);
   };
   const deleteComment = async (evt: any) => {
     console.log(evt);
@@ -70,7 +71,7 @@ export default function Comment() {
   };
   useEffect(() => {
     getCourseComment();
-    getCommentCourse();
+    // getCommentCourse();
   }, []);
 
   return (
