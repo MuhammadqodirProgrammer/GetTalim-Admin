@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import instance from '../api/api';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 
 import logo from '../../../public/images/logo2.png';
@@ -12,11 +12,10 @@ import dots from '../../../public/images/Caurusel.png';
 import Image from '../../../node_modules/next/image';
 export default function Page() {
 	// const router = useRouter();
-  const router = useRouter()
+	const router = useRouter();
 	const [error, seterror] = useState<boolean>(false);
 
-	const loginNotify = () =>
-		toast.success('Successfully Logined');
+	const loginNotify = () => toast.success('Successfully Logined');
 	const emailRef = useRef<HTMLInputElement>();
 	const pasRef = useRef<HTMLInputElement>();
 	const HendleSubmit = async (e: any) => {
@@ -37,8 +36,8 @@ export default function Page() {
 			let token = response?.data?.token;
 			localStorage.setItem('token', token);
 
-			loginNotify()
-      router.replace('/');
+			loginNotify();
+			router.replace('/');
 		} else {
 			seterror(true);
 		}
@@ -81,14 +80,14 @@ export default function Page() {
 						Please login to access your account.
 					</p>
 
-					<form className='' onSubmit={HendleSubmit} >
+					<form className='' onSubmit={HendleSubmit}>
 						<div className='mb-4 md:w-full'>
 							<div className='flex mb-[12px] justify-between items-center '>
 								<label
 									htmlFor='email'
 									className='block text-xs  text-[#455360]  '
 								>
-									G-mail 
+									G-mail
 								</label>
 
 								<Image src={info} alt='img' className='objetct-cover  ' />
@@ -106,7 +105,7 @@ export default function Page() {
 								name='email'
 								id='email'
 								placeholder='Username or Email'
-                ref={emailRef}
+								ref={emailRef}
 							/>
 						</div>
 						<div className='mb-6 md:w-full'>
@@ -129,7 +128,7 @@ export default function Page() {
         rounded
         outline-none
         focus:ring-blue-500 focus:border-blue-500 focus:ring-1'
-        ref={pasRef}
+									ref={pasRef}
 								/>
 								<button
 									type='button'
@@ -176,36 +175,36 @@ export default function Page() {
 							</div>
 						</div>
 
-
-
-<a href="#" className=' block  text-[#66BCE8] text-[16px] font-medium  my-[18px] ' > Forgot Pasword?   </a>
-
-
-
-
-
+						<a
+							href='#'
+							className=' block  text-[#66BCE8] text-[16px] font-medium  my-[18px] '
+						>
+							{' '}
+							Forgot Pasword?{' '}
+						</a>
 
 						<button
 							className='bg-[#4C70FF] hover:bg-[#254dee] text-white uppercase text-sm font-semibold px-4 py-2 rounded-[8px]   w-[100%]  '
 							type='submit'
 						>
-						Log In
+							Log In
 						</button>
 
-            <p className=' text-[#292731] text-[16px] text-center  font-normal my-[20px]  '>
-						Don't have an account? 
-            <a href="#" className='   text-[#66BCE8] text-[16px] font-medium  my-[18px] ' >  Sign Up   </a>
-					</p>
-
-            
-
-
+						<p className=' text-[#292731] text-[16px] text-center  font-normal my-[20px]  '>
+							Don't have an account?
+							<a
+								href='#'
+								className='   text-[#66BCE8] text-[16px] font-medium  my-[18px] '
+							>
+								{' '}
+								Sign Up{' '}
+							</a>
+						</p>
 					</form>
 				</div>
 			</div>
 
-
-			<Toaster/>
+			<Toaster />
 		</section>
 	);
 }

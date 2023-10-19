@@ -19,7 +19,6 @@ export default function Category() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [unauthorized, setUnauthorized] = useState<any>(false);
 
-
 	const openOffcanvas = () => {
 		setIsOpen(true);
 	};
@@ -77,9 +76,9 @@ export default function Category() {
 			setCreateModal(false);
 			getCategory();
 			createNotifcation();
-		}else if(response?.unauthorized ){
-			setUnauthorized(true)
-		  } else {
+		} else if (response?.unauthorized) {
+			setUnauthorized(true);
+		} else {
 			createErrorNotifcation();
 		}
 	};
@@ -104,9 +103,9 @@ export default function Category() {
 			setEditModal(false);
 			getCategory();
 			editNotifcation();
-		}else if(response?.unauthorized ){
-			setUnauthorized(true)
-		  } else {
+		} else if (response?.unauthorized) {
+			setUnauthorized(true);
+		} else {
 			editErrorNotifcation();
 		}
 	};
@@ -121,9 +120,9 @@ export default function Category() {
 			getCategory();
 			setdeleteModal(false);
 			deleteNotifcation();
-		}else if(res?.unauthorized ){
-			setUnauthorized(true)
-		  } else {
+		} else if (res?.unauthorized) {
+			setUnauthorized(true);
+		} else {
 			deleteErrorNotifcation();
 		}
 	}
@@ -190,10 +189,8 @@ export default function Category() {
 				</button>
 			</nav>
 
-
-			{
-				data?.length ? (
-					data?.map((el: any) => {
+			{data?.length
+				? data?.map((el: any) => {
 						return (
 							<>
 								<div className='card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
@@ -227,7 +224,7 @@ export default function Category() {
 												</svg>
 											</button>
 										</div>
-		
+
 										<div className='flex items-center gap-5 mt-3 '>
 											<div className='flex items-center gap-2'>
 												<BsCalendarDay size={16} />
@@ -279,15 +276,8 @@ export default function Category() {
 								</div>
 							</>
 						);
-					})
-
-
-				) :"catogorylar yoq ☹"
-			
-			
-			
-			
-			}
+				  })
+				: 'catogorylar yoq ☹'}
 
 			{/* create modal  */}
 
@@ -448,10 +438,7 @@ export default function Category() {
 					<p>test uchun.</p>
 				</div>
 			</div>
-			<ErrorModal
-modal={unauthorized}
-setModal={setUnauthorized}
-/>
+			<ErrorModal modal={unauthorized} setModal={setUnauthorized} />
 
 			<Toaster />
 		</div>
