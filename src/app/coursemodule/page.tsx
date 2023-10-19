@@ -27,10 +27,10 @@ export default function Courses() {
 			.get(`api/courses?page=1`)
 			.then((res: any) => {
 			
-				if (res.data?.length) {
+				if (res?.data?.length) {
 					setCourses(res?.data)
 
-					const xPagination =JSON.parse(res.headers["x-pagination"]);
+					const xPagination =JSON.parse(res?.headers["x-pagination"]);
 					console.log(res?.data, 'courses');
 					console.log(xPagination, 'xPagination');
 					setTotalPages(xPagination?.TotalPages)

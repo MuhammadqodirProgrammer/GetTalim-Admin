@@ -1,4 +1,5 @@
 "use client";
+import { ErrorModal } from "@/components/ErrorModal/ErrorModal";
 import { Modal } from "@/components/Modal/Modal";
 import NewCourses from "@/components/NewCourses/NewCourses";
 import Image from "next/image";
@@ -11,6 +12,8 @@ export default function Courses() {
   const [data, setData] = useState<any>([]);
   const [totlaPage, setTotlaPage] = useState<any>();
   const [activePage, setActivePage] = useState<any>(1);
+  const [unauthorized, setUnauthorized] = useState<any>(false);
+
 
   const createName: any = useRef<HTMLInputElement>();
   const createDescription: any = useRef<HTMLInputElement>();
@@ -31,9 +34,9 @@ export default function Courses() {
       },
     });
 
-    if (res.data?.length) {
+    if (res?.data?.length) {
       setData(res?.data);
-      const xPagination = JSON.parse(res.headers["x-pagination"]);
+      const xPagination = JSON.parse(res?.headers["x-pagination"]);
       setTotlaPage(xPagination?.TotalPages);
     }
   };
@@ -59,10 +62,12 @@ export default function Courses() {
     console.log(res);
     // console.dir(createLessons?.current);
 
-    if (res.status === 200) {
+    if (res?.status === 200) {
       getCourse();
       setCreateCourse(false);
-    }
+    }else if(res?.unauthorized ){
+			setUnauthorized(true)
+		  }
   };
 
   useEffect(() => {
@@ -283,6 +288,13 @@ export default function Courses() {
           </form>
         </div>
       </Modal>
+
+
+			<ErrorModal
+modal={unauthorized}
+setModal={setUnauthorized}
+/>
+
     </>
   );
 }

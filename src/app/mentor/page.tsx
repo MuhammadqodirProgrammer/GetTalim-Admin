@@ -62,7 +62,7 @@ export default function Resources() {
 	const getMentors = async () => {
 		const res = await instance.get(`api/mentors?page=1`);
 
-		if (res.status == 200) {
+		if (res?.status == 200) {
 			setMentors(res?.data);
 
 
@@ -140,7 +140,7 @@ export default function Resources() {
 
 		const res = await instance.delete(`api/mentors/${deleteID}`);
 
-		if (res.status == 200) {
+		if (res?.status == 200) {
 			getMentors();
 			setdeleteModal(false);
 			deleteNotifcation();
@@ -160,7 +160,7 @@ export default function Resources() {
 		const res = await instance.get(`api/mentors/${id}`);
 		setEditMentor(true);
 
-		if (res.status == 200) {
+		if (res?.status == 200) {
 			setOneData(res?.data);
 		}
 	}

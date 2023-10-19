@@ -55,10 +55,10 @@ export default function Student() {
     const res = await instance.get(`api/students?page=${activePage}`);
     console.log(res?.data, "student");
 
-    if (res.status == 200) {
+    if (res?.status == 200) {
       setStudents(res?.data);
-      const xPagination = JSON.parse(res.headers["x-pagination"]);
-      console.log(res.headers["x-pagination"], "courses header");
+      const xPagination = JSON.parse(res?.headers["x-pagination"]);
+      console.log(res?.headers["x-pagination"], "courses header");
 
       setTotalPages(xPagination?.TotalPages);
     }
@@ -72,10 +72,10 @@ export default function Student() {
       );
       console.log(res?.data, "student");
 
-      if (res.status == 200) {
+      if (res?.status == 200) {
         setStudents(res?.data);
-        const xPagination = JSON.parse(res.headers["x-pagination"]);
-        console.log(res.headers["x-pagination"], "courses header");
+        const xPagination = JSON.parse(res?.headers["x-pagination"]);
+        console.log(res?.headers["x-pagination"], "courses header");
 
         setTotalPages(xPagination?.TotalPages);
       }
@@ -92,10 +92,10 @@ export default function Student() {
       );
       console.log(res?.data, "student");
 
-      if (res.status == 200) {
+      if (res?.status == 200) {
         setStudents(res?.data);
-        const xPagination = JSON.parse(res.headers["x-pagination"]);
-        console.log(res.headers["x-pagination"], "courses header");
+        const xPagination = JSON.parse(res?.headers["x-pagination"]);
+        console.log(res?.headers["x-pagination"], "courses header");
 
         setTotalPages(xPagination?.TotalPages);
       }
@@ -152,7 +152,7 @@ export default function Student() {
     console.log(res, "res");
     console.log(deleteID, "deleteID");
 
-    if (res.status == 200) {
+    if (res?.status == 200) {
       getStudents();
       setdeleteModal(false);
       deleteNotifcation();

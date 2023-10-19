@@ -34,15 +34,15 @@ export default function Page() {
 				'Content-Type': 'application/json',
 			},
 		});
-console.log(response.status)
-		if (response.status == 200) {
+console.log(response?.status)
+		if (response?.status == 200) {
 			let token = response?.data?.token;
 			localStorage.setItem('token', token);
 
 			loginNotify()
       router.replace('/');
 		} else {
-			console.log(response.data);
+			console.log(response?.data);
 			seterror(true);
 		}
 	};

@@ -7,6 +7,7 @@ import instance from '../api/api';
 import toast, { Toaster } from 'react-hot-toast';
 import { Modal } from '@/components/Modal/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
+import { ErrorModal } from '@/components/ErrorModal/ErrorModal';
 
 export default function Category() {
 	const [data, setData] = useState<any>([]);
@@ -16,6 +17,8 @@ export default function Category() {
 	const [deleteModal, setdeleteModal] = useState<any>(false);
 	const [deleteID, setdeleteID] = useState<any>();
 	const [isOpen, setIsOpen] = useState(false);
+	const [unauthorized, setUnauthorized] = useState<any>(false);
+
 
 	const openOffcanvas = () => {
 		setIsOpen(true);
@@ -50,8 +53,8 @@ export default function Category() {
 				'Content-Type': 'application/json',
 			},
 		});
-		setData(response.data);
-		console.log(response.data);
+		setData(response?.data);
+		console.log(response?.data);
 	};
 
 	useEffect(() => {
@@ -77,7 +80,9 @@ export default function Category() {
 			setCreateModal(false);
 			getCategory();
 			createNotifcation();
-		} else {
+		}else if(response?.unauthorized ){
+			setUnauthorized(true)
+		  } else {
 			createErrorNotifcation();
 		}
 	};
@@ -102,7 +107,9 @@ export default function Category() {
 			setEditModal(false);
 			getCategory();
 			editNotifcation();
-		} else {
+		}else if(response?.unauthorized ){
+			setUnauthorized(true)
+		  } else {
 			editErrorNotifcation();
 		}
 	};
@@ -119,7 +126,9 @@ export default function Category() {
 			getCategory();
 			setdeleteModal(false);
 			deleteNotifcation();
-		} else {
+		}else if(res?.unauthorized ){
+			setUnauthorized(true)
+		  } else {
 			deleteErrorNotifcation();
 		}
 	}
@@ -186,93 +195,105 @@ export default function Category() {
 					Create Category
 				</button>
 			</nav>
-			{data?.map((el: any) => {
-				return (
-					<>
-						<div className='card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
-							<div className='flex-auto p-3'>
-								<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
-									{el?.name}
-								</h5>
-								<p className='font-normal text-gray-700 dark:text-gray-400'>
-									{el?.description}
-								</p>
-								<div className='w-44'>
-									<button
-										className='inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white'
-										// onClick={openOffcanvas}
-									>
-										<span className='w-full'>courses</span>
-										<svg
-											className='w-4 h-4 ml-2'
-											aria-hidden='true'
-											xmlns='http://www.w3.org/2000/svg'
-											fill='none'
-											viewBox='0 0 14 10'
-										>
-											<path
-												stroke='currentColor'
-												strokeLinecap='round'
-												strokeLinejoin='round'
-												strokeWidth={2}
-												d='M1 5h12m0 0L9 1m4 4L9 9'
-											/>
-										</svg>
-									</button>
-								</div>
 
-								<div className='flex items-center gap-5 mt-3 '>
-									<div className='flex items-center gap-2'>
-										<BsCalendarDay size={16} />
-										<p className=' dark:text-gray-400'>
-											{new Date(el?.createdAt).getDate() +
-												'.' +
-												new Date(el?.createdAt).getMonth() +
-												'.' +
-												new Date(el?.createdAt).getFullYear() +
-												' ' +
-												new Date(el?.createdAt).getHours() +
-												':' +
-												new Date(el?.createdAt).getMinutes()}
+
+			{
+				data?.length ? (
+					data?.map((el: any) => {
+						return (
+							<>
+								<div className='card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
+									<div className='flex-auto p-3'>
+										<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+											{el?.name}
+										</h5>
+										<p className='font-normal text-gray-700 dark:text-gray-400'>
+											{el?.description}
 										</p>
+										<div className='w-44'>
+											<button
+												className='inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white'
+												// onClick={openOffcanvas}
+											>
+												<span className='w-full'>courses</span>
+												<svg
+													className='w-4 h-4 ml-2'
+													aria-hidden='true'
+													xmlns='http://www.w3.org/2000/svg'
+													fill='none'
+													viewBox='0 0 14 10'
+												>
+													<path
+														stroke='currentColor'
+														strokeLinecap='round'
+														strokeLinejoin='round'
+														strokeWidth={2}
+														d='M1 5h12m0 0L9 1m4 4L9 9'
+													/>
+												</svg>
+											</button>
+										</div>
+		
+										<div className='flex items-center gap-5 mt-3 '>
+											<div className='flex items-center gap-2'>
+												<BsCalendarDay size={16} />
+												<p className=' dark:text-gray-400'>
+													{new Date(el?.createdAt).getDate() +
+														'.' +
+														new Date(el?.createdAt).getMonth() +
+														'.' +
+														new Date(el?.createdAt).getFullYear() +
+														' ' +
+														new Date(el?.createdAt).getHours() +
+														':' +
+														new Date(el?.createdAt).getMinutes()}
+												</p>
+											</div>
+											<div className='flex items-center gap-2'>
+												<BsCalendarDay size={16} />
+												<p className=' dark:text-gray-400'>
+													{new Date(el?.updatedAt).getDate() +
+														'.' +
+														new Date(el?.updatedAt).getMonth() +
+														'.' +
+														new Date(el?.updatedAt).getFullYear() +
+														' ' +
+														new Date(el?.updatedAt).getHours() +
+														':' +
+														new Date(el?.updatedAt).getMinutes()}
+												</p>
+											</div>
+										</div>
 									</div>
-									<div className='flex items-center gap-2'>
-										<BsCalendarDay size={16} />
-										<p className=' dark:text-gray-400'>
-											{new Date(el?.updatedAt).getDate() +
-												'.' +
-												new Date(el?.updatedAt).getMonth() +
-												'.' +
-												new Date(el?.updatedAt).getFullYear() +
-												' ' +
-												new Date(el?.updatedAt).getHours() +
-												':' +
-												new Date(el?.updatedAt).getMinutes()}
-										</p>
+									<div className='flex flex-col p-6 mt-3 gap-3'>
+										<button
+											className='bg-[orange] rounded-lg p-2 '
+											onClick={() => GetOne(el?.id)}
+										>
+											<AiOutlineEdit color={'white'} size={30} />
+										</button>
+										<button
+											className='bg-[red] rounded-lg p-2'
+											onClick={() => {
+												setdeleteID(el?.id);
+												setdeleteModal(true);
+											}}
+										>
+											<BsTrash color={'white'} size={30} />
+										</button>
 									</div>
 								</div>
-							</div>
-							<div className='flex flex-col p-6 mt-3 gap-3'>
-								<button
-									className='bg-[orange] rounded-lg p-2 '
-									onClick={() => GetOne(el?.id)}
-								>
-									<AiOutlineEdit color={'white'} size={30} />
-								</button>
-								<button
-									className='bg-[red] rounded-lg p-2'
-									onClick={() => {
-										setdeleteID(el?.id);
-										setdeleteModal(true);
-									}}
-								>
-									<BsTrash color={'white'} size={30} />
-								</button>
-							</div>
-						</div>
-					</>
-				);
-			})}
+							</>
+						);
+					})
+
+
+				) :"catogorylar yoq ☹"
+			
+			
+			
+			
+			}
 
 			{/* create modal  */}
 
@@ -385,7 +406,7 @@ export default function Category() {
 
 			<Modal
 				width={'480px'}
-				title={'Teacher'}
+				title={'Catogory'}
 				modal={deleteModal}
 				setModal={setdeleteModal}
 			>
@@ -433,6 +454,10 @@ export default function Category() {
 					<p>test uchun.</p>
 				</div>
 			</div>
+			<ErrorModal
+modal={unauthorized}
+setModal={setUnauthorized}
+/>
 
 			<Toaster />
 		</div>

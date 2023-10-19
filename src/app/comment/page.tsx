@@ -10,6 +10,7 @@ import { Modal } from "@/components/Modal/Modal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { BsCalendarDay, BsTrash } from "react-icons/bs";
 import { AiOutlineEdit } from "react-icons/ai";
+import { ErrorModal } from "@/components/ErrorModal/ErrorModal";
 
 export default function Comment() {
   const [data, setData] = useState<any>([]);
@@ -21,16 +22,18 @@ export default function Comment() {
   const [comment, setComment] = useState([]);
   const [course, setCourse] = useState<any>([]);
   const [commentId, setCommentId] = useState();
+  const [unauthorized, setUnauthorized] = useState<any>(false);
+
 
   const courseIdRef: any = useRef();
 
   const getCourseComment = async () => {
     const res = await instance.get(`api/courses?page=${activePage}`);
-    // console.log(res.data);
+    // console.log(res?.data);
 
-    if (res.status === 200) {
-      setCourse(res.data);
-      const xPagination = JSON.parse(res.headers["x-pagination"]);
+    if (res?.status === 200) {
+      setCourse(res?.data);
+      const xPagination = JSON.parse(res?.headers["x-pagination"]);
       setTotalPagesPaginate(xPagination?.TotalPages);
 
       const arr: any = [];
@@ -47,8 +50,8 @@ export default function Comment() {
       `/api/course-comments/course/${data}?page=${activePage}`
     );
     
-    if (res.status === 200) {
-      setData(res.data);
+    if (res?.status === 200) {
+      setData(res?.data);
     }
   };
   const handleChange = (evt: any) => {
@@ -63,10 +66,12 @@ export default function Comment() {
     let response = await instance.delete(`/api/course-comments/${evt}`);
     console.log(response);
 
-    if (response.status === 200) {
+    if (response?.status === 200) {
       alert("Delete Comment Course");
       getCourseComment();
-    }
+    }else if(response?.unauthorized ){
+			setUnauthorized(true)
+		  }
   };
   useEffect(() => {
     getCourseComment();
@@ -245,6 +250,11 @@ export default function Comment() {
         totalPage={totalPagesPaginate}
         // totalPage={totalPage}
       />
+			<ErrorModal
+modal={unauthorized}
+setModal={setUnauthorized}
+/>
+
     </div>
   );
 }

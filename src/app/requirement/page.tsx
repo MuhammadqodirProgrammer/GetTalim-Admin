@@ -10,6 +10,7 @@ import { Modal } from "@/components/Modal/Modal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { BsCalendarDay, BsTrash } from "react-icons/bs";
 import { AiOutlineEdit } from "react-icons/ai";
+import { ErrorModal } from "@/components/ErrorModal/ErrorModal";
 
 export default function Requirement() {
   const [data, setData] = useState<any>([]);
@@ -22,6 +23,8 @@ export default function Requirement() {
   const [comment, setComment] = useState([]);
   const [course, setCourse] = useState<any>([]);
   const [commentId, setCommentId] = useState();
+  const [unauthorized, setUnauthorized] = useState<any>(false);
+
 
   const courseIdRef: any = useRef();
   const requirementRef: any = useRef();
@@ -29,10 +32,10 @@ export default function Requirement() {
 
   const getCourseComment = async () => {
     const res = await instance.get(`api/courses?page=${activePage}`);
-    // console.log(res.data);
+    // console.log(res?.data);
 
-    if (res.status === 200) {
-      setCourse(res.data);
+    if (res?.status === 200) {
+      setCourse(res?.data);
     }
   };
 
@@ -47,8 +50,8 @@ export default function Requirement() {
 
     let res = await instance.get(`/api/courserequirments/course/${commentId}`);
 
-    if (res.status === 200) {
-      setData(res.data);
+    if (res?.status === 200) {
+      setData(res?.data);
     }
   };
   const deleteComment = async (evt: any) => {
@@ -57,10 +60,12 @@ export default function Requirement() {
     let response = await instance.delete(`/api/courserequirments/${evt}`);
     console.log(response);
 
-    if (response.status === 200) {
+    if (response?.status === 200) {
       getCourseComment();
       alert("Delete Comment Course");
-    }
+    }else if(response?.unauthorized ){
+			setUnauthorized(true)
+		  }
   };
 
   const handleCreateRequirement = async (evt: any) => {
@@ -71,10 +76,12 @@ export default function Requirement() {
 
     let res = await instance.post("/api/courserequirments", formData);
     console.log(res);
-    if (res.status === 200) {
+    if (res?.status === 200) {
       getCommentCourse();
       setCourseRequirement(false);
-    }
+    }else if(res?.unauthorized ){
+			setUnauthorized(true)
+		  }
   };
 
   useEffect(() => {
@@ -267,6 +274,13 @@ export default function Requirement() {
           </form>
         </div>
       </Modal>
+
+
+			<ErrorModal
+modal={unauthorized}
+setModal={setUnauthorized}
+/>
+
     </div>
   );
 }

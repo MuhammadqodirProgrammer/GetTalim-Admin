@@ -11,10 +11,7 @@ import { RiMovie2Line, RiSoundModuleFill } from "react-icons/ri";
 import { LiaCommentDotsSolid } from "react-icons/lia";
 import DashImg from "../../../public/icons/dashboard.svg";
 import { AiFillStar } from "react-icons/ai";
-// import Map from "../Maps/TestMap";
 
-// without this the component renders on server and throws an error
-import dynamic from "next/dynamic";
 import instance from "./api/api";
 
 
@@ -33,8 +30,8 @@ const [categoriesCount, setCategoriesCount] = useState<any>(0);
 
     console.log(res?.data, "student");
 
-    if (res.status == 200) {
-      const studentInfo = JSON.parse(res.headers["x-pagination"]);
+    if (res?.status == 200) {
+      const studentInfo = JSON.parse(res?.headers["x-pagination"]);
       const coursesInfo = JSON.parse(courses.headers["x-pagination"]);
 
       setStudentsCount(studentInfo?.TotalItems);

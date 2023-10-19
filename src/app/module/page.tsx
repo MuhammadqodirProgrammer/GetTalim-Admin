@@ -80,8 +80,8 @@ export default function Module() {
     instance
       .get(`/api/courses`)
       .then((res: any) => {
-        console.log(res.data);
-        setCourses(res.data);
+        console.log(res?.data);
+        setCourses(res?.data);
       })
       .catch((err: any) => {
         console.log(err);
@@ -111,11 +111,11 @@ export default function Module() {
 
     let response = await instance.post("/api/CourseModuls", data);
 
-    if (response.status === 200 && response.data == true) {
+    if (response?.status === 200 && response?.data == true) {
       notify();
       setShowModal(false);
       getCourseModules()
-    } else if (response.data == false) {
+    } else if (response?.data == false) {
       notify2();
     }else if(response?.unauthorized){
       setUnauthorized(true)
@@ -129,7 +129,7 @@ export default function Module() {
     const id = evt.target.closest("button").id;
     let response = await instance.delete(`/api/CourseModuls/${id}`);
 
-    if (response.status === 200 && response.data == true) {
+    if (response?.status === 200 && response?.data == true) {
       notify4();
       getCourseModules()
     }else if(response?.unauthorized){
@@ -153,7 +153,7 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 
     let response = await instance.put(`/api/CourseModuls/${Id}`, data);
 
-    if (response.status === 200 && response.data == true) {
+    if (response?.status === 200 && response?.data == true) {
       notify3();
       setEditShowModal(false);
       getCourseModules()
@@ -167,7 +167,7 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 		const res = await instance.get(`api/CourseModuls/${id}`);
 		setEditShowModal(true);
     handleId(id)
-		if (res.status == 200) {
+		if (res?.status == 200) {
 			setOneData(res?.data);
 		}
 	}
@@ -178,7 +178,7 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 		const res = await instance.get(`api/videos/modul/${id}`);
     openOffcanvas()
     setModuleId(id)
-		if (res.status == 200) {
+		if (res?.status == 200) {
       setModuleVideos(res?.data)
 		}else if(res?.status ==401){
       setUnauthorized(true)
@@ -222,7 +222,7 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
     setVideoId(id)
     console.log(res?.data ,"edit malumotlari");
     
-		if (res.status == 200) {
+		if (res?.status == 200) {
 			seteditOneVideoData(res?.data);
 		}
 	}
@@ -239,7 +239,7 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 	
 
 		let response = await instance.post(`api/videos`, formData);
-		// setData(response.data);
+		// setData(response?.data);
 		console.log(response, 'response video create');
    if( response?.status ==200){
     GetModuleVideos(moduleId)
@@ -285,7 +285,7 @@ videoLengthRef.current.value = " "
     evt.preventDefault();
   
     let response = await instance.delete(`api/videos/${deleteVideoId}`);
-    if (response.status === 200 && response.data == true) {
+    if (response?.status === 200 && response?.data == true) {
       videonotify4();
       GetModuleVideos(moduleId)
       setdeleteVideoModal(false)
