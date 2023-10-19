@@ -16,6 +16,7 @@ import { useEffect, useRef, useState } from 'react';
 import instance, { baseUrlImg } from '../api/api';
 import { VideoSkeleton } from '@/components/Skeleton/Skeleton';
 import { Pagination } from '@/components/Pagination/Pagination';
+import { ErrorModal } from '@/components/ErrorModal/ErrorModal';
 
 export default function Resources() {
 	// mentor states
@@ -29,6 +30,8 @@ export default function Resources() {
 	const [mentors, setMentors] = useState<any>([]);
 	const [totalPages, setTotalPages] = useState<any>([]);
 	const [oneData, setOneData] = useState<any>({});
+	const [unauthorized, setUnauthorized] = useState<any>(false);
+
 
 	//  crate refs
 	const firstNameRef: any = useRef<HTMLInputElement>();
@@ -61,11 +64,12 @@ export default function Resources() {
 
 		if (res.status == 200) {
 			setMentors(res?.data);
-			// const xPagination = JSON.parse(res.headers['x-pagination']);
-			console.log(res.headers['x-pagination'], 'courses header');
+
 
 			//  setTotalPages()
-		}
+		}else if(res?.unauthorized ){
+			setUnauthorized(true)
+		  }
 	};
 	// create func
 	const createMentorFunc = async (e: any) => {
@@ -80,13 +84,15 @@ export default function Resources() {
 		formData.append('stack', stackRef?.current?.value);
 
 		let response = await instance.post(`api/mentors`, formData);
-		console.log(response?.status, 'response status');
+
 
 		if (response?.status == 200) {
 			setCreateMentor(false);
 			getMentors();
 			createNotifcation();
-		} else {
+		}else if(response?.unauthorized ){
+			setUnauthorized(true)
+		  } else {
 			createErrorNotifcation();
 		}
 	};
@@ -121,7 +127,9 @@ export default function Resources() {
 			setEditMentor(false);
 			getMentors();
 			editNotifcation();
-		} else {
+		} else if(response?.unauthorized ){
+			setUnauthorized(true)
+		  } else {
 			editErrorNotifcation();
 		}
 	};
@@ -136,7 +144,10 @@ export default function Resources() {
 			getMentors();
 			setdeleteModal(false);
 			deleteNotifcation();
-		} else {
+		}else if(res?.unauthorized ){
+			setUnauthorized(true)
+		  }
+		 else {
 			deleteErrorNotifcation();
 		}
 	}
@@ -603,6 +614,12 @@ export default function Resources() {
 					</form>
 				</div>
 			</Modal>
+
+			<ErrorModal
+modal={unauthorized}
+setModal={setUnauthorized}
+/>
+
 			<Toaster />
 		</>
 	);

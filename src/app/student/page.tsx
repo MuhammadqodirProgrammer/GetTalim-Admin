@@ -18,6 +18,7 @@ import instance, { baseUrlImg } from "../api/api";
 import { VideoSkeleton } from "@/components/Skeleton/Skeleton";
 import { Pagination } from "@/components/Pagination/Pagination";
 import userImg from "../../../public/images/user.png";
+import { ErrorModal } from "@/components/ErrorModal/ErrorModal";
 
 export default function Student() {
   const [createVideoModal, setcreateVideoModal] = useState(false); // mentor states
@@ -31,6 +32,8 @@ export default function Student() {
   const [students, setStudents] = useState<any>([]);
   const [totalPages, setTotalPages] = useState<any>(1);
   const [oneData, setOneData] = useState<any>({});
+  const [unauthorized, setUnauthorized] = useState<any>(false);
+
 
   //  edutr refs
   const editfirstNameRef: any = useRef<HTMLInputElement>();
@@ -134,6 +137,8 @@ export default function Student() {
       setEditMentor(false);
       getStudents();
       editNotifcation();
+    }else if(response?.unauthorized ){
+      setUnauthorized(true)
     } else {
       editErrorNotifcation();
     }
@@ -151,6 +156,8 @@ export default function Student() {
       getStudents();
       setdeleteModal(false);
       deleteNotifcation();
+    }else if(res?.unauthorized ){
+      setUnauthorized(true)
     } else {
       deleteErrorNotifcation();
     }
@@ -511,6 +518,12 @@ export default function Student() {
           </form>
         </div>
       </Modal>
+
+      <ErrorModal
+modal={unauthorized}
+setModal={setUnauthorized}
+/>
+
       <Toaster />
     </div>
   );
