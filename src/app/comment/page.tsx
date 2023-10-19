@@ -54,7 +54,6 @@ export default function Comment() {
 	};
 	const handleChange = (evt: any) => {
 		evt.preventDefault();
-		// setCommentId(evt.target.value);
 		getCommentCourse(evt.target.value);
 	};
 	const deleteComment = async (evt: any) => {
