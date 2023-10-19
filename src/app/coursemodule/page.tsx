@@ -31,8 +31,6 @@ export default function Courses() {
 					setCourses(res?.data)
 
 					const xPagination =JSON.parse(res?.headers["x-pagination"]);
-					console.log(res?.data, 'courses');
-					console.log(xPagination, 'xPagination');
 					setTotalPages(xPagination?.TotalPages)
 				}
 			})
@@ -42,7 +40,6 @@ export default function Courses() {
 	};
 
   async function getId(id:any) {
-    console.log(id ,"id");
     
     localStorage.setItem("course_id" , id)
   }

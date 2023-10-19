@@ -94,7 +94,6 @@ const NewCourses = ({ myHref, data, totalPage }: any) => {
     evt.preventDefault();
 
     const res = await instance.delete(`api/courses/${deleteId}`);
-    console.log(res);
 
     if (res.status == 200) {
       getCourse();

@@ -28,8 +28,6 @@ const [categoriesCount, setCategoriesCount] = useState<any>(0);
     const mentors = await instance.get(`api/mentors?page=1`);
     const categories = await instance.get(`api/categories?page=1`);
 
-    console.log(res?.data, "student");
-
     if (res?.status == 200) {
       const studentInfo = JSON.parse(res?.headers["x-pagination"]);
       const coursesInfo = JSON.parse(courses.headers["x-pagination"]);

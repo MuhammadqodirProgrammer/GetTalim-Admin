@@ -60,7 +60,6 @@ export default function Module() {
 		instance
 			.get(`api/CourseModuls/videos/student/${myCourseId}`)
 			.then((res: any) => {
-				console.log(res ,"status  ");
 				
 				if (res?.data?.length) {
 					setData(res?.data);
@@ -80,7 +79,6 @@ export default function Module() {
     instance
       .get(`/api/courses`)
       .then((res: any) => {
-        console.log(res?.data);
         setCourses(res?.data);
       })
       .catch((err: any) => {
@@ -148,8 +146,6 @@ export default function Module() {
 name:editnameRef.current.value || oneData?.name,
 courseId: editcourseIdRef.current.value || oneData?.courseId
     }
-    console.log(mydata ,Id,"ddfdf");
-    
 
     let response = await instance.put(`/api/CourseModuls/${Id}`, data);
 
@@ -240,7 +236,6 @@ courseId: editcourseIdRef.current.value || oneData?.courseId
 
 		let response = await instance.post(`api/videos`, formData);
 		// setData(response?.data);
-		console.log(response, 'response video create');
    if( response?.status ==200){
     GetModuleVideos(moduleId)
     setcreateVideoModal(false)
@@ -268,7 +263,6 @@ videoLengthRef.current.value = " "
 		formData.append('CourseModulId', moduleId);
 
 		let response = await instance.put(`api/videos/${editOneVideoData?.id}`, formData);
-		console.log(response, 'response video edit');
    if( response?.status ==200){
     GetModuleVideos(moduleId)
     setEditVideoModal(false)

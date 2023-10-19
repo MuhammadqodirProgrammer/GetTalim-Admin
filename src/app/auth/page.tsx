@@ -16,7 +16,6 @@ export default function Page() {
       email,
       password: pas,
     };
-    console.log(data);
 
     let response = await instance.post("/api/StudentAuth/login", data, {
       headers: {
@@ -29,7 +28,6 @@ export default function Page() {
       localStorage.setItem("token", token);
       window.location.replace("/");
     } else {
-      console.log(response.data);
       seterror(true);
     }
   };

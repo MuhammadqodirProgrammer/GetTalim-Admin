@@ -32,7 +32,6 @@ export default function Requirement() {
 
   const getCourseComment = async () => {
     const res = await instance.get(`api/courses?page=${activePage}`);
-    // console.log(res?.data);
 
     if (res?.status === 200) {
       setCourse(res?.data);
@@ -46,7 +45,6 @@ export default function Requirement() {
   };
 
   const getCommentCourse = async () => {
-    console.log(commentId);
 
     let res = await instance.get(`/api/courserequirments/course/${commentId}`);
 
@@ -55,10 +53,8 @@ export default function Requirement() {
     }
   };
   const deleteComment = async (evt: any) => {
-    console.log(evt);
 
     let response = await instance.delete(`/api/courserequirments/${evt}`);
-    console.log(response);
 
     if (response?.status === 200) {
       getCourseComment();
@@ -75,7 +71,6 @@ export default function Requirement() {
     formData.append("CourseId", selectRef?.current?.value);
 
     let res = await instance.post("/api/courserequirments", formData);
-    console.log(res);
     if (res?.status === 200) {
       getCommentCourse();
       setCourseRequirement(false);

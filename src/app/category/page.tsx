@@ -54,7 +54,6 @@ export default function Category() {
 			},
 		});
 		setData(response?.data);
-		console.log(response?.data);
 	};
 
 	useEffect(() => {
@@ -73,8 +72,6 @@ export default function Category() {
 		);
 
 		let response = await instance.post(`api/categories`, formData);
-		console.log(response, 'res');
-		console.log(nameRef?.current?.value, descRef?.current?.value, 'res');
 
 		if (response?.status == 200) {
 			setCreateModal(false);
@@ -119,8 +116,6 @@ export default function Category() {
 		evt.preventDefault();
 
 		const res = await instance.delete(`api/categories/${deleteID}`);
-		console.log(res, 'res');
-		console.log(deleteID, 'deleteID');
 
 		if (res.status == 200) {
 			getCategory();
@@ -135,7 +130,6 @@ export default function Category() {
 	// get one
 	async function GetOne(id: any) {
 		const res = await instance.get(`api/categories/${id}`);
-		console.log(res);
 
 		setOneData(res?.data);
 		setEditModal(true);

@@ -29,7 +29,6 @@ export default function Comment() {
 
   const getCourseComment = async () => {
     const res = await instance.get(`api/courses?page=${activePage}`);
-    // console.log(res?.data);
 
     if (res?.status === 200) {
       setCourse(res?.data);
@@ -57,14 +56,11 @@ export default function Comment() {
   const handleChange = (evt: any) => {
     evt.preventDefault();
     // setCommentId(evt.target.value);
-    // console.log(evt.target.value);
     getCommentCourse(evt.target.value);
   };
   const deleteComment = async (evt: any) => {
-    console.log(evt);
 
     let response = await instance.delete(`/api/course-comments/${evt}`);
-    console.log(response);
 
     if (response?.status === 200) {
       alert("Delete Comment Course");

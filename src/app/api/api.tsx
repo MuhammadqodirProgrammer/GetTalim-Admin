@@ -27,7 +27,6 @@ instance.interceptors.response.use(
     }
     if (error.response.status === 401) {
 
-      console.log("401 error handled");
       // alert("Error - 401 Unauthorized");
 
       return {unauthorized:true ,status: 401}

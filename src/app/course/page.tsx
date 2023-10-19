@@ -59,8 +59,6 @@ export default function Courses() {
     formData.append("Image", createImage?.current?.files[0]);
 
     const res = await instance.post("/api/courses", formData);
-    console.log(res);
-    // console.dir(createLessons?.current);
 
     if (res?.status === 200) {
       getCourse();

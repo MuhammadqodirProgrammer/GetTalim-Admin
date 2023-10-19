@@ -27,14 +27,12 @@ export default function Page() {
 			email,
 			password: pas,
 		};
-		console.log(data);
 
 		let response = await instance.post('/api/StudentAuth/login', data, {
 			headers: {
 				'Content-Type': 'application/json',
 			},
 		});
-console.log(response?.status)
 		if (response?.status == 200) {
 			let token = response?.data?.token;
 			localStorage.setItem('token', token);
@@ -42,7 +40,6 @@ console.log(response?.status)
 			loginNotify()
       router.replace('/');
 		} else {
-			console.log(response?.data);
 			seterror(true);
 		}
 	};

@@ -53,12 +53,10 @@ export default function Student() {
   // get students
   const getStudents = async () => {
     const res = await instance.get(`api/students?page=${activePage}`);
-    console.log(res?.data, "student");
 
     if (res?.status == 200) {
       setStudents(res?.data);
       const xPagination = JSON.parse(res?.headers["x-pagination"]);
-      console.log(res?.headers["x-pagination"], "courses header");
 
       setTotalPages(xPagination?.TotalPages);
     }
@@ -70,12 +68,10 @@ export default function Student() {
       const res = await instance.get(
         `api/students/search-full-name/${evt.target?.value}?page=${activePage}`
       );
-      console.log(res?.data, "student");
 
       if (res?.status == 200) {
         setStudents(res?.data);
         const xPagination = JSON.parse(res?.headers["x-pagination"]);
-        console.log(res?.headers["x-pagination"], "courses header");
 
         setTotalPages(xPagination?.TotalPages);
       }
@@ -90,12 +86,10 @@ export default function Student() {
       const res = await instance.get(
         `api/students/search-email/${evt.target?.value}?page=${activePage}`
       );
-      console.log(res?.data, "student");
 
       if (res?.status == 200) {
         setStudents(res?.data);
         const xPagination = JSON.parse(res?.headers["x-pagination"]);
-        console.log(res?.headers["x-pagination"], "courses header");
 
         setTotalPages(xPagination?.TotalPages);
       }
@@ -149,8 +143,6 @@ export default function Student() {
     evt.preventDefault();
 
     const res = await instance.delete(`api/admin/student/${deleteID}`);
-    console.log(res, "res");
-    console.log(deleteID, "deleteID");
 
     if (res?.status == 200) {
       getStudents();
@@ -169,7 +161,6 @@ export default function Student() {
 
   async function GetOne(id: any) {
     const findOne = await students.find((el: any) => el?.id == id);
-    console.log(findOne, "findOness");
     setOneData(findOne);
     setEditMentor(true);
   }
