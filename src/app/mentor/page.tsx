@@ -32,7 +32,6 @@ export default function Resources() {
 	const [oneData, setOneData] = useState<any>({});
 	const [unauthorized, setUnauthorized] = useState<any>(false);
 
-
 	//  crate refs
 	const firstNameRef: any = useRef<HTMLInputElement>();
 	const lastNameRef: any = useRef<HTMLInputElement>();
@@ -65,11 +64,10 @@ export default function Resources() {
 		if (res?.status == 200) {
 			setMentors(res?.data);
 
-
 			//  setTotalPages()
-		}else if(res?.unauthorized ){
-			setUnauthorized(true)
-		  }
+		} else if (res?.unauthorized) {
+			setUnauthorized(true);
+		}
 	};
 	// create func
 	const createMentorFunc = async (e: any) => {
@@ -85,14 +83,13 @@ export default function Resources() {
 
 		let response = await instance.post(`api/mentors`, formData);
 
-
 		if (response?.status == 200) {
 			setCreateMentor(false);
 			getMentors();
 			createNotifcation();
-		}else if(response?.unauthorized ){
-			setUnauthorized(true)
-		  } else {
+		} else if (response?.unauthorized) {
+			setUnauthorized(true);
+		} else {
 			createErrorNotifcation();
 		}
 	};
@@ -127,9 +124,9 @@ export default function Resources() {
 			setEditMentor(false);
 			getMentors();
 			editNotifcation();
-		} else if(response?.unauthorized ){
-			setUnauthorized(true)
-		  } else {
+		} else if (response?.unauthorized) {
+			setUnauthorized(true);
+		} else {
 			editErrorNotifcation();
 		}
 	};
@@ -144,10 +141,9 @@ export default function Resources() {
 			getMentors();
 			setdeleteModal(false);
 			deleteNotifcation();
-		}else if(res?.unauthorized ){
-			setUnauthorized(true)
-		  }
-		 else {
+		} else if (res?.unauthorized) {
+			setUnauthorized(true);
+		} else {
 			deleteErrorNotifcation();
 		}
 	}
@@ -164,7 +160,6 @@ export default function Resources() {
 			setOneData(res?.data);
 		}
 	}
-
 
 	return (
 		<>
@@ -320,7 +315,7 @@ export default function Resources() {
 										setDeleteID(el?.id);
 									}}
 								>
-									O'chirish
+									O&apos;chirish
 								</button>
 							</div>
 						</div>
@@ -615,10 +610,7 @@ export default function Resources() {
 				</div>
 			</Modal>
 
-			<ErrorModal
-modal={unauthorized}
-setModal={setUnauthorized}
-/>
+			<ErrorModal modal={unauthorized} setModal={setUnauthorized} />
 
 			<Toaster />
 		</>

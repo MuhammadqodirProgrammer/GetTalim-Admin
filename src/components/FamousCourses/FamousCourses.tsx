@@ -28,7 +28,7 @@ const FamousCourses = () => {
         height={"100%"}
       />
       <h6 className="pt-[10px] text-[22px] font-bold text-white">
-        JavaScript darslari to'liq kurs
+        JavaScript darslari to&apos;liq kurs
       </h6>
       <div className="flex gap-[6px] py-[15px]">
         <span className="flex gap-[5px] items-center text-[15px] text-famousCourcesDescsColor">

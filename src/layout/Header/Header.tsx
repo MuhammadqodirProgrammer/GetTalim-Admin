@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import "./header.css";
 import Image from "next/image";
 import Logo from "../../../public/images/logo2.png";
+import adminImg from "../../../public/images/user.png";
 import { ModeToggle } from "@/components/mode-toggle";
 import { PiStudentDuotone } from "react-icons/pi";
 import { FaBlackTie } from "react-icons/fa";
@@ -38,7 +39,7 @@ const Header = () => {
             className="flex items-center font-semibold gap-2 sm:text-[24px]  text-[16px]"
           >
             <Image src={Logo} width={32} height={32} alt="logo" />
-            Get Ta'lim
+            Get Ta&apos;lim
           </Link>
           <div className="chakra-stack flex items-center md:gap-x-2  gap-x-3 ">
             <div className="dropdown">
@@ -90,9 +91,11 @@ const Header = () => {
                   data-dropdown-toggle="dropdown-user"
                 >
                   <span className="sr-only">Open user menu</span>
-                  <img
+                  <Image
+                  width={100}
+                  height={100}
                     className="w-8 h-8 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                    src={adminImg}
                     alt="user photo"
                   />
                 </button>

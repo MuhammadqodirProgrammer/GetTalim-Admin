@@ -191,7 +191,7 @@ export default function Page() {
 						</button>
 
 						<p className=' text-[#292731] text-[16px] text-center  font-normal my-[20px]  '>
-							Don't have an account?
+							Don&apos;t have an account?
 							<a
 								href='#'
 								className='   text-[#66BCE8] text-[16px] font-medium  my-[18px] '

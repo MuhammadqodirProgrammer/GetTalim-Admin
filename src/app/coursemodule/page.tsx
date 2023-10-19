@@ -87,7 +87,7 @@ export default function Courses() {
 			</nav>
 			<h2 className='text-[30px]  lg:text-[36px] my-4  text-black dark:text-white font-semibold'>
 				<span className='text-mainColor'>Kurslarni </span> tanlang va{' '}
-				<span className='text-mainColor'>module</span> qo'shing
+				<span className='text-mainColor'>module</span> qo&apos;shing
 			</h2>
 			<div className='flex flex-wrap gap-5'>
 				{courses?.map((el: any) => {
