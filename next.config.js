@@ -6,6 +6,7 @@ const nextConfig = {
   preload: true,
   images: {
     domains: ["64.227.42.134"],
+    
   },
   sassOptions: {
     includePaths: ["path/to/sass/directory"],
