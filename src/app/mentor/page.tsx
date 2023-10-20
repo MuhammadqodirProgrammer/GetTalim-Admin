@@ -30,7 +30,7 @@ export default function Resources() {
 	const [mentors, setMentors] = useState<any>([]);
 	const [totalPages, setTotalPages] = useState<any>([]);
 	const [oneData, setOneData] = useState<any>({});
-	const [unauthorized, setUnauthorized] = useState<any>(false);
+	const [unauthorized, setUnauthorized] = useState<boolean>(false);
 
 	//  crate refs
 	const firstNameRef: any = useRef<HTMLInputElement>();

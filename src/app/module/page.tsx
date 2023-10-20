@@ -37,7 +37,7 @@ export default function Module() {
 	const [moduleVideos, setModuleVideos] = useState<any>([]);
 	const [showModal, setShowModal] = useState<any>(false);
 	const [editshowModal, setEditShowModal] = useState<any>(false);
-	const [unauthorized, setUnauthorized] = useState<any>(false);
+	const [unauthorized, setUnauthorized] = useState<boolean>(false);
 	const [editVideoModal, setEditVideoModal] = useState<any>(false);
 	const [Id, handleId] = useState<any>('');
 	const [moduleId, setModuleId] = useState<any>('');
@@ -325,7 +325,9 @@ export default function Module() {
 			{data.map((el: any) => {
 				return (
 					<>
-						<div className='card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700   '>
+						<div className='card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700   ' 
+						key={el?.id}
+						>
 							<div className='flex-auto p-3 relative'>
 								<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
 									{el.name}
@@ -447,12 +449,14 @@ export default function Module() {
 										{courses.map((item: any) => {
 											if (item?.id == myCourseId) {
 												return (
-													<option selected value={item.id}>
+													<option selected value={item.id} key={item?.id} >
 														{item.name}
 													</option>
 												);
 											} else {
-												return <option value={item.id}>{item.name}</option>;
+												return <option value={item.id}
+												key={item?.id}
+												>{item.name}</option>;
 											}
 										})}
 									</select>
@@ -517,12 +521,14 @@ export default function Module() {
 										{courses.map((item: any) => {
 											if (item?.id == oneData?.courseId) {
 												return (
-													<option selected value={item.id}>
+													<option selected value={item.id} key={item?.id} >
 														{item.name}
 													</option>
 												);
 											} else {
-												return <option value={item.id}>{item.name}</option>;
+												return <option value={item.id}
+												key={item?.id}
+												>{item.name}</option>;
 											}
 										})}
 									</select>

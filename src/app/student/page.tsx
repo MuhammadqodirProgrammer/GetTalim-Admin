@@ -32,7 +32,7 @@ export default function Student() {
 	const [students, setStudents] = useState<any>([]);
 	const [totalPages, setTotalPages] = useState<any>(1);
 	const [oneData, setOneData] = useState<any>({});
-	const [unauthorized, setUnauthorized] = useState<any>(false);
+	const [unauthorized, setUnauthorized] = useState<boolean>(false);
 
 	//  edutr refs
 	const editfirstNameRef: any = useRef<HTMLInputElement>();

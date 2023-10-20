@@ -49,7 +49,7 @@ const FamousCourses = () => {
             <path d="M17 3m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v15.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z"></path>
             <path d="M5 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
           </svg>
-          Boshlang'ich
+          Boshlang&apos;ich
         </span>
         <span className="flex gap-[5px] items-center text-[15px] text-famousCourcesDescsColor">
           <svg

@@ -17,7 +17,7 @@ export default function Category() {
 	const [deleteModal, setdeleteModal] = useState<any>(false);
 	const [deleteID, setdeleteID] = useState<any>();
 	const [isOpen, setIsOpen] = useState(false);
-	const [unauthorized, setUnauthorized] = useState<any>(false);
+	const [unauthorized, setUnauthorized] = useState<boolean>(false);
 
 	const openOffcanvas = () => {
 		setIsOpen(true);

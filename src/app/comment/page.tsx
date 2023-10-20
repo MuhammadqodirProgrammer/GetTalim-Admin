@@ -22,7 +22,7 @@ export default function Comment() {
 	const [comment, setComment] = useState([]);
 	const [course, setCourse] = useState<any>([]);
 	const [commentId, setCommentId] = useState();
-	const [unauthorized, setUnauthorized] = useState<any>(false);
+	const [unauthorized, setUnauthorized] = useState<boolean>(false);
 
 	const courseIdRef: any = useRef();
 
@@ -130,7 +130,7 @@ export default function Comment() {
 						{/* <option selected>Change Course Comment</option> */}
 
 						{course.map((el: any) => {
-							return <option value={`${el?.id}`}>{el?.name}</option>;
+							return <option value={`${el?.id}`} key={el?.id} >{el?.name}</option>;
 						})}
 					</select>
 					<select

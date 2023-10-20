@@ -23,7 +23,7 @@ export default function Requirement() {
 	const [comment, setComment] = useState([]);
 	const [course, setCourse] = useState<any>([]);
 	const [commentId, setCommentId] = useState();
-	const [unauthorized, setUnauthorized] = useState<any>(false);
+	const [unauthorized, setUnauthorized] = useState<boolean>(false);
 
 	const courseIdRef: any = useRef();
 	const requirementRef: any = useRef();
@@ -140,7 +140,7 @@ export default function Requirement() {
 						{/* <option selected>Change Course Comment</option> */}
 
 						{course.map((el: any) => {
-							return <option value={`${el?.id}`}>{el?.name}</option>;
+							return <option value={`${el?.id}`} key={el?.id} >{el?.name}</option>;
 						})}
 					</select>
 					<button
@@ -257,7 +257,7 @@ export default function Requirement() {
 							className='w-full h-[30px] xl:h-[40px]  xl:w-[328px] p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  '
 						>
 							{course.map((el: any) => {
-								return <option value={el.id}>{el.id}</option>;
+								return <option value={el.id} key={el?.id}>{el.id}</option>;
 							})}
 						</select>
 						<button className='bg-blue-500 mt-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>

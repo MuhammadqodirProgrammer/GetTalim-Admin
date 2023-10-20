@@ -12,7 +12,7 @@ export default function Courses() {
 	const [data, setData] = useState<any>([]);
 	const [totlaPage, setTotlaPage] = useState<any>();
 	const [activePage, setActivePage] = useState<any>(1);
-	const [unauthorized, setUnauthorized] = useState<any>(false);
+	const [unauthorized, setUnauthorized] = useState<boolean>(false);
 
 	const createName: any = useRef<HTMLInputElement>();
 	const createDescription: any = useRef<HTMLInputElement>();
