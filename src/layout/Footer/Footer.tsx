@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="footer text-black dark:text-white  bg-white dark:bg-[#171923] fixed bottom-0 w-full">
       <div className="flex   justify-between inner_container ">
-        <h4>© 2023 Osmondagi bolalar. Barcha huquqlar himoyalangan</h4>
+        <h4 className=" text-[12px] sm:text-[20px] " >© 2023 Osmondagi bolalar. Barcha huquqlar himoyalangan</h4>
         <div className="chakra-stack flex items-center gap-x-3">
           <a
             className="media_link "

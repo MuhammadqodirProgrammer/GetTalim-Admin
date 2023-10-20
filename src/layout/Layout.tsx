@@ -6,10 +6,11 @@ import Navbar from "./Navbar/Navbar";
 import FamousCourses from "@/components/FamousCourses/FamousCourses";
 import NewCourses from "@/components/NewCourses/NewCourses";
 import { useRouter } from "next/navigation";
-
 export default function Layout({ children }: any) {
   const token = localStorage.getItem("token");
   const router: any = useRouter();
+
+
 
   if (!token) {
     router.replace("/login");

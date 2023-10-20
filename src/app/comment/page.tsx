@@ -64,6 +64,8 @@ export default function Comment() {
 			getCourseComment();
 		} else if (response?.unauthorized) {
 			setUnauthorized(true);
+		}else{
+			alert(" somthing happened 😯")
 		}
 	};
 	useEffect(() => {
