@@ -20,7 +20,14 @@ const instance = axios.create({
 
 // Interceptors for handling common scenarios
 instance.interceptors.response.use(
-	(response) => response,
+	(response) => {
+		console.log({...response, unauthorized: false, } ,"test response");
+		if(response?.status==401){
+			return {...response, unauthorized: true, }
+		}
+		return {...response, unauthorized: false, }
+		
+	},
 	(error) => {
 		if (error.response.status === 400) {
 			return error.response;
@@ -28,7 +35,6 @@ instance.interceptors.response.use(
 		if (error.response.status === 401) {
 			// alert("Error - 401 Unauthorized");
 
-			return { unauthorized: true, status: 401 };
 		} else if (error.response.status === 404) {
 			// Redirect to not found page
 			// You can use Vue Router to navigate
