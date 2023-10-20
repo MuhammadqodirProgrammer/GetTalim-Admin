@@ -62,8 +62,6 @@ export default function Comment() {
 		if (response?.status === 200) {
 			alert('Delete Comment Course');
 			getCourseComment();
-		} else if (response?.unauthorized) {
-			setUnauthorized(true);
 		}else{
 			alert(" somthing happened 😯")
 		}
