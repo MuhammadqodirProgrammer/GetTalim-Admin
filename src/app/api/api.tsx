@@ -24,8 +24,11 @@ instance.interceptors.response.use(
 		console.log({...response, unauthorized: false, } ,"test response");
 		if(response?.status==401){
 			return {...response, unauthorized: true, }
+		}else{
+
+			return {...response, unauthorized: false, }
+
 		}
-		return {...response, unauthorized: false, }
 		
 	},
 	(error) => {
