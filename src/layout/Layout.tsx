@@ -1,16 +1,16 @@
-"use client";
 import React from "react";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import Navbar from "./Navbar/Navbar";
 import FamousCourses from "@/components/FamousCourses/FamousCourses";
 import NewCourses from "@/components/NewCourses/NewCourses";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Import from 'next/router' instead of 'next/navigation'
+
 export default function Layout({ children }: any) {
-  const token = localStorage.getItem("token");
-  const router: any = useRouter();
+  const router = useRouter();
 
-
+  // Check if localStorage is available
+  const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
 
   if (!token) {
     router.replace("/login");

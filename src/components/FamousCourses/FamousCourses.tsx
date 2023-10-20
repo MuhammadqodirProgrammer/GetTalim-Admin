@@ -24,8 +24,8 @@ const FamousCourses = () => {
         className="min-h-[420px] h-full w-full object-cover rounded-lg transition ease-in-out hover:opacity-75"
         src={BgImage}
         alt="Picture of the course"
-        width={"100%"}
-        height={"100%"}
+        width={100}
+        height={100}
       />
       <h6 className="pt-[10px] text-[22px] font-bold text-white">
         JavaScript darslari to&apos;liq kurs
@@ -93,8 +93,8 @@ const FamousCourses = () => {
             className="w-[48px] h-[48px] rounded-full object-cover"
             src={profileImg}
             alt="Picture of the author"
-            width={"100%"}
-            height={"100%"}
+            width={100}
+            height={100}
           />
           <p>Samar B.</p>
         </div>

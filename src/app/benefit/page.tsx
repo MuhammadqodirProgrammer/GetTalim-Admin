@@ -20,7 +20,6 @@ export default function Benefit() {
   const [commentId, setCommentId] = useState();
   const [unauthorized, setUnauthorized] = useState<boolean>(false);
 
-
   const courseIdRef: any = useRef();
   const requirementRef: any = useRef();
   const selectRef: any = useRef();
@@ -50,9 +49,9 @@ export default function Benefit() {
     if (response?.status === 200) {
       getCourseComment();
       alert("Delete Comment Course");
-    }else if(response?.unauthorized ){
-			setUnauthorized(true)
-		  }
+    } else if (response?.data.unauthorized) {
+      setUnauthorized(true);
+    }
   };
 
   const handleCreateRequirement = async (evt: any) => {
@@ -65,9 +64,9 @@ export default function Benefit() {
     if (res?.status === 200) {
       getCommentCourse();
       setCourseRequirement(false);
-    }else if(res?.unauthorized ){
-			setUnauthorized(true)
-		  }
+    } else if (res?.data.unauthorized) {
+      setUnauthorized(true);
+    }
   };
 
   useEffect(() => {
@@ -134,7 +133,11 @@ export default function Benefit() {
             {/* <option selected>Change Course Comment</option> */}
 
             {course.map((el: any) => {
-              return <option value={`${el?.id}`} key={el?.id} >{el?.name}</option>;
+              return (
+                <option value={`${el?.id}`} key={el?.id}>
+                  {el?.name}
+                </option>
+              );
             })}
           </select>
           <button
@@ -251,7 +254,11 @@ export default function Benefit() {
               className="w-full h-[30px] xl:h-[40px]  xl:w-[328px] p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
             >
               {course.map((el: any) => {
-                return <option value={el.id} key={el?.id} >{el.id}</option>;
+                return (
+                  <option value={el.id} key={el?.id}>
+                    {el.id}
+                  </option>
+                );
               })}
             </select>
             <button className="bg-blue-500 mt-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -261,11 +268,7 @@ export default function Benefit() {
         </div>
       </Modal>
 
-			<ErrorModal
-modal={unauthorized}
-setModal={setUnauthorized}
-/>
-
+      <ErrorModal modal={unauthorized} setModal={setUnauthorized} />
     </div>
   );
 }

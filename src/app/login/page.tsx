@@ -16,8 +16,8 @@ export default function Page() {
 	const [error, seterror] = useState<boolean>(false);
 
 	const loginNotify = () => toast.success('Successfully Logined');
-	const emailRef = useRef<HTMLInputElement>();
-	const pasRef = useRef<HTMLInputElement>();
+	const emailRef:any = useRef<HTMLInputElement>();
+	const pasRef:any = useRef<HTMLInputElement>();
 	const HendleSubmit = async (e: any) => {
 		e.preventDefault();
 		const email = emailRef.current?.value;
@@ -32,15 +32,18 @@ export default function Page() {
 				'Content-Type': 'application/json',
 			},
 		});
-		if (response?.status == 200) {
-			let token = response?.data?.token;
-			localStorage.setItem('token', token);
-
-			loginNotify();
-			router.replace('/');
-		} else {
+		if (response?.status === 200) {
+			if (typeof window !== 'undefined') {
+			  let token = response?.data?.token;
+			  localStorage.setItem('token', token);
+		  
+			  loginNotify();
+			  router.replace('/');
+			}
+		  } else {
 			seterror(true);
-		}
+		  }
+		  
 	};
 
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
