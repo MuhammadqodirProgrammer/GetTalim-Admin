@@ -14,6 +14,7 @@ import { ErrorModal } from "@/components/ErrorModal/ErrorModal";
 
 export default function Requirement() {
   const [data, setData] = useState<any>([]);
+  const [dataDefault, setDataDefault] = useState<any>([]);
   const [activePage, setActivePage] = useState(1);
   const [setDataIDDelete, setdeleteIDDelete] = useState<number>();
   const [totalPages, setTotalPages] = useState<any>([]);
@@ -50,9 +51,16 @@ export default function Requirement() {
       setData(res?.data);
     }
   };
+  const getCommentCourseDefault = async () => {
+    let res = await instance.get(`/api/courserequirments?page=1`);
+
+    if (res?.status === 200) {
+      setDataDefault(res?.data);
+    }
+  };
   const deleteComment = async (evt: any) => {
     let response = await instance.delete(`/api/courserequirments/${evt}`);
-console.log(response);
+    console.log(response);
 
     if (response?.status === 200) {
       getCourseComment();
@@ -80,6 +88,7 @@ console.log(response);
   useEffect(() => {
     getCourseComment();
     getCommentCourse();
+    getCommentCourseDefault();
   }, []);
 
   return (
@@ -157,7 +166,7 @@ console.log(response);
         </div>
       </div>
       <div className="w-full">
-        {data.length > 0
+        {data.length
           ? data?.map((el: any) => {
               return (
                 <>
@@ -237,7 +246,85 @@ console.log(response);
                 </>
               );
             })
-          : ""}
+          : dataDefault?.map((el: any) => {
+              return (
+                <>
+                  <div className="card flex border bg-gray-100 mb-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flex-auto p-3">
+                      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {el.requirment}
+                      </h5>
+                      <div className="w-44">
+                        <button
+                          className="inline-flex text-gray-700 w-full items-center justify-center mt-1 text-l font-medium   rounded   hover:text-gray-900 bg-gray-200 dark:text-gray-200 dark:bg-gray-600 hover:bg-gray-300 px-3 py-2 dark:hover:bg-gray-700 dark:hover:text-white"
+                          // onClick={openOffcanvas}
+                        >
+                          <span className="w-full">courses</span>
+                          <svg
+                            className="w-4 h-4 ml-2"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 10"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M1 5h12m0 0L9 1m4 4L9 9"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+
+                      <div className="flex items-center gap-5 mt-3 ">
+                        <div className="flex items-center gap-2">
+                          <BsCalendarDay size={16} />
+                          <p className=" dark:text-gray-400">
+                            {new Date(el?.createdAt).getDate() +
+                              "." +
+                              new Date(el?.createdAt).getMonth() +
+                              "." +
+                              new Date(el?.createdAt).getFullYear() +
+                              " " +
+                              new Date(el?.createdAt).getHours() +
+                              ":" +
+                              new Date(el?.createdAt).getMinutes()}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <BsCalendarDay size={16} />
+                          <p className=" dark:text-gray-400">
+                            {new Date(el?.updatedAt).getDate() +
+                              "." +
+                              new Date(el?.updatedAt).getMonth() +
+                              "." +
+                              new Date(el?.updatedAt).getFullYear() +
+                              " " +
+                              new Date(el?.updatedAt).getHours() +
+                              ":" +
+                              new Date(el?.updatedAt).getMinutes()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex-col p-6 mt-3 gap-3">
+                      <button
+                        className="bg-[red] rounded-lg p-2"
+                        onClick={() => {
+                          // setdeleteIDDelete(el?.id);
+                          deleteComment(el?.id);
+                          // setdeleteModal(true);
+                        }}
+                      >
+                        <BsTrash color={"white"} size={30} />
+                      </button>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
       </div>
 
       <Modal
