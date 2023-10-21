@@ -269,11 +269,11 @@ export default function Student() {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3 md:justify-start justify-center">
+      <div className="flex flex-wrap gap-3  w-[100%] md:justify-start justify-center">
         {students.length ? (
           students.map((el: any): any => (
             <div
-              className="shadow bg-white dark:bg-cardColor flex flex-col justify-start  items-center p-3 rounded-lg w-full sm:max-w-[230px]"
+              className="shadow bg-white dark:bg-cardColor flex flex-col justify-start  sm:items-start items-center p-4 rounded-lg w-full sm:w-[100%]  md:w-[47%] lg:w-[23%]"
               key={el?.id}
             >
               <Image
@@ -285,9 +285,9 @@ export default function Student() {
               />
               <div className="mt-2">
                 <h4 className="text-black dark:text-white font-semibold text-[18px]">
-                  {(el?.firstName + " " + el?.lastName).slice(0, 15)}..
+                  {(el?.firstName + " " + el?.lastName).slice(0, 17)}..
                 </h4>
-                <p className="text-[grey]">{el?.email}</p>
+                <p className="text-[grey]">{(el?.email)?.slice(0, 18)}..</p>
                 <div className="flex gap-2 mt-2 text-grey">
                   <BsFillTelephoneFill className="text-[#9F7AEA] dark:text-white " />
 
