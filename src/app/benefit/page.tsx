@@ -344,7 +344,7 @@ export default function Benefit() {
               {course.map((el: any) => {
                 return (
                   <option value={el.id} key={el?.id}>
-                    {el.id}
+                    {el?.name}
                   </option>
                 );
               })}

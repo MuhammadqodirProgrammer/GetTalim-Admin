@@ -351,7 +351,7 @@ export default function Requirement() {
               {course.map((el: any) => {
                 return (
                   <option value={el.id} key={el?.id}>
-                    {el.id}
+                    {el?.name}
                   </option>
                 );
               })}
