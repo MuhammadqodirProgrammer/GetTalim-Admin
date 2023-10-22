@@ -350,7 +350,7 @@ export default function Student() {
       {/* edit modal  */}
 
       <Modal
-        width={"900px"}
+        width={"700px"}
         title={"Edit Student"}
         modal={editMentor}
         setModal={setEditMentor}
@@ -360,7 +360,7 @@ export default function Student() {
             className="flex flex-col items-center gap-3 justify-center"
             onSubmit={editMentorFunc}
           >
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent "
                 placeholder="Edit Student firstName"
@@ -369,7 +369,7 @@ export default function Student() {
                 ref={editfirstNameRef}
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
                 placeholder="Edit Student lastName"
@@ -379,7 +379,7 @@ export default function Student() {
               />
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
                 placeholder="Edit  Mentor email"
@@ -388,7 +388,7 @@ export default function Student() {
                 ref={editemailRef}
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none    dark:bg-gray-700 bg-transparent  dark:focus:border-blue-500  focus:border-blue-500 "
                 placeholder="Edit Student phone"

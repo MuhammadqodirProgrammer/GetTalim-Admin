@@ -338,7 +338,7 @@ export default function Resources() {
       {/* create modal  */}
 
       <Modal
-        width={"900px"}
+        width={"700px"}
         title={"Create Mentor"}
         modal={createMentor}
         setModal={setCreateMentor}
@@ -348,7 +348,7 @@ export default function Resources() {
             className="flex flex-col items-center gap-3 justify-center"
             onSubmit={createMentorFunc}
           >
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent "
                 placeholder="Mentor firstName"
@@ -356,7 +356,7 @@ export default function Resources() {
                 ref={firstNameRef}
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
                 placeholder="Mentor lastName"
@@ -365,7 +365,7 @@ export default function Resources() {
               />
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
                 placeholder="Mentor email"
@@ -373,7 +373,7 @@ export default function Resources() {
                 ref={emailRef}
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none    dark:bg-gray-700 bg-transparent  dark:focus:border-blue-500  focus:border-blue-500 "
                 placeholder="Mentor Stack"
@@ -451,7 +451,7 @@ export default function Resources() {
       {/* edit modal  */}
 
       <Modal
-        width={"900px"}
+        width={"700px"}
         title={"Edit Mentor"}
         modal={editMentor}
         setModal={setEditMentor}
@@ -461,7 +461,7 @@ export default function Resources() {
             className="flex flex-col items-center gap-3 justify-center"
             onSubmit={editMentorFunc}
           >
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent "
                 placeholder="Edit Mentor firstName"
@@ -470,7 +470,7 @@ export default function Resources() {
                 ref={editfirstNameRef}
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
                 placeholder="Edit Mentor lastName"
@@ -480,7 +480,7 @@ export default function Resources() {
               />
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none   dark:focus:border-blue-500  focus:border-blue-500  dark:bg-gray-700 bg-transparent  "
                 placeholder="Edit  Mentor email"
@@ -489,7 +489,7 @@ export default function Resources() {
                 ref={editemailRef}
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <input
                 className="w-full p-2 border rounded  border-gray-500 outline-none    dark:bg-gray-700 bg-transparent  dark:focus:border-blue-500  focus:border-blue-500 "
                 placeholder="Edit Mentor Stack"

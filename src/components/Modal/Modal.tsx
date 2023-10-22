@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { GrClose } from "react-icons/gr";
-import "./modal.css";
 import { AiOutlineClose } from "react-icons/ai";
+import "./modal.css";
 
 interface ModalProps {
   modal: boolean;
@@ -32,7 +32,10 @@ export const Modal: React.FC<ModalProps> = ({
       onClick={handleOverlay}
       className={`overlay   ${modal ? "open" : ""}`}
     >
-      <div className={` w-[${width}] modal_wrapper bg-white dark:bg-topColor `}>
+      <div
+        style={{ width: width }}
+        className={` modal_wrapperModal bg-white dark:bg-topColor `}
+      >
         <button
           onClick={() => setModal(false)}
           className={`btn modal_button text-black dark:text-white  rounded-0`}
