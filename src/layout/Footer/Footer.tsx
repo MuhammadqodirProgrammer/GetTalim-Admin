@@ -3,7 +3,7 @@ import Link from "next/link";
 import "./footer.css";
 const Footer = () => {
   return (
-    <footer className="footer text-black dark:text-white  bg-white dark:bg-[#171923] fixed bottom-0 w-full">
+    <footer className="footer bg-[#EDF2F7] dark:bg-[#171923] static bottom-0 mt-3 w-full z-50 mt-2">
       <div className="flex   justify-between inner_container ">
         <h4 className=" text-[12px] sm:text-[20px] " >© 2023 Osmondagi bolalar. Barcha huquqlar himoyalangan</h4>
         <div className="chakra-stack flex items-center gap-x-3">

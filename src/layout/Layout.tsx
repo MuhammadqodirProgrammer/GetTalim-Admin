@@ -25,7 +25,7 @@ export default function Layout({ children }: any) {
           <Header />
         </div>
         <Navbar />
-        <div className="inner_container pb-[100px] mt-[12vh] ">{children}</div>
+        <div className="inner_container mt-[12vh] min-h-[78vh] ">{children}</div>
         <div>
           <Footer />
         </div>
