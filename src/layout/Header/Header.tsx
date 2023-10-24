@@ -17,21 +17,26 @@ import { AiFillStar } from "react-icons/ai";
 import { useTheme } from "next-themes";
 const Header = () => {
   const pathname = usePathname();
-  const {setTheme} = useTheme();
+  const { setTheme } = useTheme();
   const [isOffcanvasOpen, setOffcanvasOpen] = useState(false);
   const [active, setActive] = useState(true);
   const [display, setDisplay] = useState<string>();
+  const [theme, setThemeState] = useState("light");
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setThemeState(newTheme);
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (active) {
-        setTheme("light");
-        localStorage.setItem("theme", "light");
-      } else {
-        setTheme("dark");
-        localStorage.setItem("theme", "dark");
-      }
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setThemeState(storedTheme);
+      setTheme(storedTheme);
     }
-  }, [active]);
+  }, []);
 
   const toggleOffcanvas = () => {
     setOffcanvasOpen(!isOffcanvasOpen);
@@ -87,7 +92,10 @@ const Header = () => {
             <button
               type="button"
               className=" header_icons_box"
-              onClick={() => setActive(!active)}
+              onClick={() => {
+                toggleTheme();
+                setActive(!active);
+              }}
             >
               <svg
                 className={active ? "" : "hidden"}
