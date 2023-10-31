@@ -1,15 +1,15 @@
 import { ErrorModal } from '@/components/ErrorModal/ErrorModal';
 import axios from 'axios';
 
-export const baseUrlImg = 'http://64.227.42.134:3030';
-export const baseUrl = 'http://64.227.42.134:3030/api';
+export const baseUrlImg = 'http://165.227.164.31:4040';
+export const baseUrl = 'http://165.227.164.31:4040/api';
 
 const apiRoot = axios.create({
 	baseURL: `http://161.35.188.153`,
 });
 
 const instance = axios.create({
-	baseURL: 'http://64.227.42.134:3030',
+	baseURL: 'http://165.227.164.31:4040',
 });
 
 // Interceptors for handling common scenarios
